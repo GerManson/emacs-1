@@ -23,6 +23,17 @@
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
+; Textile
+(require 'textile-minor-mode)
+(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-minor-mode))
+
+; Markdown
+(autoload 'markdown-mode "markdown-mode.el"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.mkd$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+
 ; JavaScript
 (autoload 'js-mode "js" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))

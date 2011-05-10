@@ -29,6 +29,8 @@
 (vendor 'rinari)
 (vendor 'rvm)
 (vendor 'magit)
+(vendor 'textile-minor-mode)
+(vendor 'markdown-mode)
 
 ; load personal customizations (keybindings, colors, etc.)
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
