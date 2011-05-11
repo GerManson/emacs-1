@@ -19,8 +19,5 @@
 ; no bell
 (setq ring-bell-function 'ignore)
 
-(setq default-frame-alist '(
-                (width . 170)
-                (height . 45) ))
-
-(set-frame-position (selected-frame) 30 50)
+(set-frame-position (selected-frame) 0 0)
+(set-frame-size (selected-frame) 1000 1000)
