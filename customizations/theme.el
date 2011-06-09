@@ -9,7 +9,7 @@
 
 ; nice font
 (defun fontify-frame (frame)
-  (set-frame-parameter frame 'font "Inconsolata-16"))
+  (set-frame-parameter frame 'font "Inconsolata-14"))
 
 ; fontify current frame
 (fontify-frame nil)
