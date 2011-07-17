@@ -31,6 +31,7 @@
 (vendor 'magit)
 (vendor 'textile-minor-mode)
 (vendor 'markdown-mode)
+(vendor 'rdebug)
 
 ; load personal customizations (keybindings, colors, etc.)
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
