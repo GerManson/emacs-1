@@ -5,7 +5,7 @@
     (color-theme-initialize))
 
 (setq color-theme-is-global t)
-(color-theme-almost-monokai)
+(color-theme-billw)
 
 ; nice font
 (defun fontify-frame (frame)
