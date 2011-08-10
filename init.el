@@ -33,5 +33,8 @@
 (vendor 'markdown-mode)
 (vendor 'rdebug)
 
+(add-to-list 'load-path "~/.emacs.d/vendor/scala")
+(add-to-list 'load-path "~/.emacs.d/vendor/yasnippet")
+
 ; load personal customizations (keybindings, colors, etc.)
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
