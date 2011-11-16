@@ -23,15 +23,10 @@
 
 ; load third-party modes
 ; note: these are configured in customizations/my-modes.el
-(vendor 'color-theme)
-;(vendor 'color-theme-solarized)
-(vendor 'color-theme-almost-monokai)
-(vendor 'rinari)
-(vendor 'rvm)
-(vendor 'magit)
 (vendor 'textile-minor-mode)
 (vendor 'markdown-mode)
 (vendor 'rdebug)
+(vendor 'csharp-mode)
 
 (add-to-list 'load-path "~/.emacs.d/vendor/scala")
 (add-to-list 'load-path "~/.emacs.d/vendor/yasnippet")

@@ -10,14 +10,8 @@
 ; blink cursor
 (blink-cursor-mode t)
 
-; highlight current line
-(global-hl-line-mode t)
-
 ; force new frames into existing window
 (setq ns-pop-up-frames nil)
 
 ; no bell
 (setq ring-bell-function 'ignore)
-
-(set-frame-position (selected-frame) 0 0)
-(set-frame-size (selected-frame) 1000 1000)

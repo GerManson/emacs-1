@@ -45,11 +45,11 @@ svn:wc:ra_dav:version-url
 V 49
 /svn/!svn/ver/733/trunk/emacs/rdebug-secondary.el
 END
-README
+rdebug-help.el
 K 25
 svn:wc:ra_dav:version-url
-V 36
-/svn/!svn/ver/942/trunk/emacs/README
+V 44
+/svn/!svn/ver/711/trunk/emacs/rdebug-help.el
 END
 rdebug-core.el
 K 25
@@ -57,11 +57,11 @@ svn:wc:ra_dav:version-url
 V 44
 /svn/!svn/ver/924/trunk/emacs/rdebug-core.el
 END
-rdebug-help.el
+README
 K 25
 svn:wc:ra_dav:version-url
-V 44
-/svn/!svn/ver/711/trunk/emacs/rdebug-help.el
+V 36
+/svn/!svn/ver/942/trunk/emacs/README
 END
 rdebug-error.el
 K 25

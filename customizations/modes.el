@@ -30,6 +30,9 @@
 (require 'rinari)
 (setq rinari-tags-file-name "TAGS")
 
+; Clojure
+(require 'clojure-mode)
+
 ; YAML
 (autoload 'yaml-mode "yaml-mode" "Mode for editing yaml files" t)
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
