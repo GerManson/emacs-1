@@ -1,5 +1,6 @@
 ;; fms's init.el
 
+;;; This was installed by package-install.el.
 ;;; This provides support for the package system and
 ;;; interfacing with ELPA, the package archive.
 ;;; Move this code earlier if you want to reference
@@ -26,10 +27,10 @@
 (vendor 'textile-minor-mode)
 (vendor 'markdown-mode)
 (vendor 'rdebug)
-(vendor 'csharp-mode)
-
-(add-to-list 'load-path "~/.emacs.d/vendor/scala")
-(add-to-list 'load-path "~/.emacs.d/vendor/yasnippet")
+(vendor 'color-theme)
+(vendor 'color-theme-almost-monokai)
+(vendor 'rvm)
+(vendor 'magit)
 
 ; load personal customizations (keybindings, colors, etc.)
 (mapcar 'load-directory '("~/.emacs.d/customizations"))

@@ -3,7 +3,7 @@
 ;;; Code:
 
 
-;;;### (autoloads (ruby-mode) "ruby-mode" "ruby-mode.el" (20103 38761))
+;;;### (autoloads (ruby-mode) "ruby-mode" "ruby-mode.el" (20268 59429))
 ;;; Generated autoloads from ruby-mode.el
 
 (autoload 'ruby-mode "ruby-mode" "\
@@ -31,7 +31,7 @@ The variable ruby-indent-level controls the amount of indentation.
 
 ;;;***
 
-;;;### (autoloads nil nil ("ruby-mode-pkg.el") (20103 38761 283662))
+;;;### (autoloads nil nil ("ruby-mode-pkg.el") (20268 59429 919011))
 
 ;;;***
 

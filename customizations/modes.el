@@ -2,18 +2,6 @@
 (iswitchb-mode 1)
 (setq iswitchb-default-method 'samewindow)
 
-; Scala
-(require 'scala-mode)
-(add-to-list 'auto-mode-alist '("\\.scala$" . scala-mode))
-
-(require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/vendor/yasnippet/snippets")
-
-(add-hook 'scala-mode-hook
-          '(lambda ()
-             (yas/minor-mode-on)))
-
 ; Ruby
 (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
@@ -29,9 +17,6 @@
 ; Rails
 (require 'rinari)
 (setq rinari-tags-file-name "TAGS")
-
-; Clojure
-(require 'clojure-mode)
 
 ; YAML
 (autoload 'yaml-mode "yaml-mode" "Mode for editing yaml files" t)

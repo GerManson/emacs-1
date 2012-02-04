@@ -9,7 +9,7 @@
 (savehist-mode 1)
 
 ; pick up changes to files on disk automatically (ie, after git pull)
-(global-auto-revert-mode 1)
+(global-auto-revert-mode t)
 
 ; don't confirm opening non-existant files/buffers
 (setq confirm-nonexistent-file-or-buffer nil)
