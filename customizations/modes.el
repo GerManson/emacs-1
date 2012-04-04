@@ -27,13 +27,6 @@
 (require 'textile-minor-mode)
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-minor-mode))
 
-; Markdown
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.mkd$" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-
 ; JavaScript
 (autoload 'js-mode "js" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
@@ -77,3 +70,9 @@
 ; Git
 (require 'magit)
 (autoload 'magit-status "magit" nil t)
+
+; Common Lisp
+(if (string-equal system-type "gnu/linux")
+  (setq inferior-lisp-program "/usr/bin/clisp"))
+(require 'slime-autoloads)
+(slime-setup)

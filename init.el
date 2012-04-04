@@ -25,12 +25,24 @@
 ; load third-party modes
 ; note: these are configured in customizations/my-modes.el
 (vendor 'textile-minor-mode)
-(vendor 'markdown-mode)
 (vendor 'rdebug)
 (vendor 'color-theme)
 (vendor 'color-theme-almost-monokai)
 (vendor 'rvm)
 (vendor 'magit)
+(vendor 'slime)
 
 ; load personal customizations (keybindings, colors, etc.)
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
