@@ -31,6 +31,7 @@
 (vendor 'rvm)
 (vendor 'magit)
 (vendor 'slime)
+(vendor 'quack)
 
 ; load personal customizations (keybindings, colors, etc.)
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
