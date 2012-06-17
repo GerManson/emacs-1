@@ -74,5 +74,7 @@
 ; Common Lisp
 (if (string-equal system-type "gnu/linux")
   (setq inferior-lisp-program "/usr/bin/clisp"))
+(if (string-equal system-type "darwin")
+  (setq inferior-lisp-program "/opt/local/bin/clisp"))
 (require 'slime-autoloads)
 (slime-setup)
