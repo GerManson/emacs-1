@@ -4,19 +4,10 @@
 
 ; Ruby
 (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
-(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Capfile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.rake" . ruby-mode) auto-mode-alist))
-(add-hook 'ruby-mode-hook (lambda () (local-set-key "\r" 'newline-and-indent)))
-
-(require 'ruby-electric)
-(add-hook 'ruby-mode-hook (lambda () (ruby-electric-mode 1)))
-
-; Rails
-(require 'rinari)
-(setq rinari-tags-file-name "TAGS")
 
 ; YAML
 (autoload 'yaml-mode "yaml-mode" "Mode for editing yaml files" t)
@@ -44,10 +35,6 @@
   nxml-degraded t)
 
 (add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo-mode))
-
-; RVM
-(require 'rvm)
-(rvm-use-default)
 
 (eval-after-load 'nxhtml
   '(eval-after-load 'color-theme
