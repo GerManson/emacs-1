@@ -60,8 +60,8 @@
 
 ; Common Lisp
 (if (string-equal system-type "gnu/linux")
-  (setq inferior-lisp-program "/usr/bin/clisp"))
+  (setq inferior-lisp-program "/usr/bin/sbcl"))
 (if (string-equal system-type "darwin")
-  (setq inferior-lisp-program "/opt/local/bin/clisp"))
+  (setq inferior-lisp-program "/opt/local/bin/sbcl"))
 (require 'slime-autoloads)
-(slime-setup)
+(slime-setup '(slime-fancy))
