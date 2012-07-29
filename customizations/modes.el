@@ -40,8 +40,7 @@
   '(eval-after-load 'color-theme
      (custom-set-faces
        '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) (:background "#242424"))))
-       '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) (:background "#373736"))))
-)))
+       '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) (:background "#373736")))))))
 
 ; Mumamo is making emacs 23.3 freak out:
 (when (and (equal emacs-major-version 23)
@@ -58,10 +57,18 @@
 (require 'magit)
 (autoload 'magit-status "magit" nil t)
 
-; Common Lisp
-(if (string-equal system-type "gnu/linux")
-  (setq inferior-lisp-program "/usr/bin/sbcl"))
-(if (string-equal system-type "darwin")
-  (setq inferior-lisp-program "/opt/local/bin/sbcl"))
+;; change magit diff colors
+(eval-after-load 'magit
+  '(progn
+     (set-face-foreground 'magit-diff-add "green3")
+     (set-face-foreground 'magit-diff-del "red3")
+     (when (not window-system)
+       (set-face-background 'magit-item-highlight "black"))))
+
 (require 'slime-autoloads)
-(slime-setup '(slime-fancy))
+(slime-setup '(slime-fancy slime-editing-commands slime-highlight-edits))
+
+; Common Lisp
+(eval-after-load 'slime
+  '(cond ((eq system-type 'gnu/linux) (setq inferior-lisp-program "/usr/bin/sbcl"))
+         ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl"))))
