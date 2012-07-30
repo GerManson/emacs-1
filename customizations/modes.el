@@ -1,4 +1,4 @@
-;; Flymake 
+;; Flymake
 (unless (eq system-type 'windows-nt) ; Flymake requires shell and it doesn't work in Windows
   (require 'flymake))
 
@@ -48,7 +48,8 @@
 
 ;; Common Lisp
 (cond ((eq system-type 'gnu/linux) (setq inferior-lisp-program "/usr/bin/sbcl"))
-         ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl")))
+      ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl"))
+      ((eq system-type 'windows-nt) (setq inferior-lisp-program "C:/Progra~2/SteelB~1/1.0.55/sbcl.exe")))
 
 (add-to-list 'load-path "~/.emacs.d/vendor/slime/contrib/")
 (require 'slime)
