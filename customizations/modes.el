@@ -1,6 +1,8 @@
-;; Interactively Do Things
-(require 'flymake)
+;; Flymake 
+(unless (eq system-type 'windows-nt) ; Flymake requires shell and it doesn't work in Windows
+  (require 'flymake))
 
+;; Interactively Do Things
 (require 'ido)
 (ido-mode t)
 (setq ido-enable-flex-matching t) ; case insensitive matching
