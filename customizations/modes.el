@@ -1,9 +1,14 @@
-;; Use iswitchb
-(iswitchb-mode 1)
-(setq iswitchb-default-method 'samewindow)
+;; Interactively Do Things
+(require 'ido)
+(ido-mode t)
+(setq ido-enable-flex-matching t) ; case insensitive matching
+(add-to-list 'ido-ignore-files "\\.DS_Store")
+(setq ido-create-new-buffer 'always) ; always create a new buffer with Ido
+(setq ido-use-virtual-buffers t)
 
 ; Ruby
 (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
+(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Capfile" . ruby-mode) auto-mode-alist))
@@ -21,37 +26,9 @@
 ; JavaScript
 (autoload 'js-mode "js" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
+
 ; JSON
 (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
-
-; nxhtml (HTML/ERB template support)
-(load "~/.emacs.d/vendor/nxhtml/autostart.el")
-(setq
-  nxhtml-global-minor-mode t
-  mumamo-chunk-coloring 'submode-colored
-  nxhtml-skip-welcome t
-  indent-region-mode t
-  rng-nxml-auto-validate-flag t
-  nxml-degraded t)
-
-(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo-mode))
-
-(eval-after-load 'nxhtml
-  '(eval-after-load 'color-theme
-     (custom-set-faces
-       '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) (:background "#242424"))))
-       '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) (:background "#373736")))))))
-
-; Mumamo is making emacs 23.3 freak out:
-(when (and (equal emacs-major-version 23)
-           (equal emacs-minor-version 3))
-  (eval-after-load "bytecomp"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function))
-  ;; tramp-compat.el clobbers this variable!
-  (eval-after-load "tramp-compat"
-    '(add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function)))
 
 ; Git
 (require 'magit)
@@ -65,10 +42,13 @@
      (when (not window-system)
        (set-face-background 'magit-item-highlight "black"))))
 
-(require 'slime-autoloads)
-(slime-setup '(slime-fancy slime-editing-commands slime-highlight-edits))
+;; Common Lisp
+(cond ((eq system-type 'gnu/linux) (setq inferior-lisp-program "/usr/bin/sbcl"))
+         ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl")))
 
-; Common Lisp
-(eval-after-load 'slime
-  '(cond ((eq system-type 'gnu/linux) (setq inferior-lisp-program "/usr/bin/sbcl"))
-         ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl"))))
+(add-to-list 'load-path "~/.emacs.d/vendor/slime/contrib/")
+(require 'slime)
+(slime-setup '(slime-fancy slime-repl slime-editing-commands slime-highlight-edits))
+
+;; Scheme
+(require 'quack)

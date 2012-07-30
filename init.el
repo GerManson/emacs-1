@@ -1,4 +1,11 @@
 ;; fms's init.el
+(require 'cl)
+
+(require 'package)
+(add-to-list 'package-archives
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/") t)
+(package-initialize)
 
 ; add directories to the load path
 (add-to-list 'load-path "~/.emacs.d")
@@ -13,25 +20,8 @@
 (mapcar 'load-directory '("~/.emacs.d/utilities"))
 
 ; load third-party modes
-; note: these are configured in customizations/my-modes.el
-(vendor 'textile-minor-mode)
-(vendor 'color-theme)
-(vendor 'color-theme-almost-monokai)
-(vendor 'magit)
 (vendor 'slime)
-(vendor 'quack)
+(vendor 'textile-minor-mode)
 
 ; load personal customizations (keybindings, colors, etc.)
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )

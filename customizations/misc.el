@@ -9,4 +9,3 @@
           (end (point)))
       (fill-region beg end)
       (comment-region beg end))))
-
