@@ -52,8 +52,11 @@
       ((eq system-type 'windows-nt) (setq inferior-lisp-program "C:/Progra~2/SteelB~1/1.0.55/sbcl.exe")))
 
 (add-to-list 'load-path "~/.emacs.d/vendor/slime/contrib/")
+;; recognize ASDF files used by newer CL systems:
+(add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
+
 (require 'slime)
-(slime-setup '(slime-fancy slime-repl slime-editing-commands slime-highlight-edits))
+(slime-setup '(slime-fancy slime-repl slime-editing-commands))
 
 ;; Scheme
 (require 'quack)
