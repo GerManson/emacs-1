@@ -60,3 +60,5 @@
 
 ;; Scheme
 (require 'quack)
+
+(require 'guru-mode)
