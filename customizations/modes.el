@@ -61,4 +61,10 @@
 ;; Scheme
 (require 'quack)
 
+;; Guru mode, training not to use the arrow keys
 (require 'guru-mode)
+
+;; Just a custom key for org-mode journaling.
+(add-hook
+ 'org-mode-hook
+ (lambda () (local-set-key (kbd "C-c j") 'org-journal-entry)))
