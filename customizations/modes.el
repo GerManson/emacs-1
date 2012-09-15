@@ -17,6 +17,7 @@
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Capfile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.rake" . ruby-mode) auto-mode-alist))
+(require 'rinari)
 
 ; YAML
 (autoload 'yaml-mode "yaml-mode" "Mode for editing yaml files" t)
@@ -24,8 +25,8 @@
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
 ; Textile
-(require 'textile-minor-mode)
-(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-minor-mode))
+(require 'textile-mode)
+(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
 ; JavaScript
 (autoload 'js-mode "js" nil t)
@@ -68,3 +69,7 @@
 (add-hook
  'org-mode-hook
  (lambda () (local-set-key (kbd "C-c j") 'org-journal-entry)))
+
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook (lambda () (rainbow-mode 1)))
+(add-hook 'html-mode-hook (lambda () (rainbow-mode 1)))
