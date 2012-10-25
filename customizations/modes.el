@@ -73,3 +73,6 @@
 
 (require 'rvm)
 (rvm-use-default)
+
+;; Use aspell instead of ispell
+(setq-default ispell-program-name "aspell")
