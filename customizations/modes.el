@@ -76,3 +76,6 @@
 
 ;; Use aspell instead of ispell
 (setq-default ispell-program-name "aspell")
+
+;; sql-mode default to postgresql syntax hightlighting
+(add-hook 'sql-mode-hook (lambda () (sql-set-product 'postgres)))
