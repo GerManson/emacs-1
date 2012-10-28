@@ -1,7 +1,3 @@
-;; Flymake
-(unless (eq system-type 'windows-nt) ; Flymake requires shell and it doesn't work in Windows
-  (require 'flymake))
-
 ;; Interactively Do Things
 (require 'ido)
 (ido-mode t)
@@ -11,18 +7,13 @@
 (setq ido-use-virtual-buffers t)
 
 ; Ruby
-(autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
-(autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (setq auto-mode-alist (cons '("Rakefile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("Capfile" . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.rake" . ruby-mode) auto-mode-alist))
 (require 'rinari)
 
 ; YAML
-(autoload 'yaml-mode "yaml-mode" "Mode for editing yaml files" t)
-(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(require 'yaml-mode)
 
 ; Textile
 (require 'textile-mode)
@@ -31,8 +22,6 @@
 ; JavaScript
 (autoload 'js-mode "js" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
-
-; JSON
 (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
 
 ; Git
@@ -82,4 +71,4 @@
 (add-hook 'sql-mode-hook (lambda () (sql-set-product 'postgres)))
 
 ;; Dired+ use a single buffer
- (toggle-diredp-find-file-reuse-dir 1)
+(toggle-diredp-find-file-reuse-dir 1)

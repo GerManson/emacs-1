@@ -64,16 +64,12 @@
 ;;; Code:
 ;;;###begin-elpa-ignore
 (let* ((this-dir (file-name-directory (or load-file-name buffer-file-name)))
-       (util-dir (file-name-as-directory
-                  (expand-file-name "util" this-dir)))
-       (inf-ruby-dir (file-name-as-directory
-                      (expand-file-name "inf-ruby" util-dir)))
-       (jump-dir (file-name-as-directory
-                  (expand-file-name "jump" util-dir))))
-  (add-to-list 'load-path this-dir)
-  (add-to-list 'load-path util-dir)
-  (add-to-list 'load-path inf-ruby-dir)
-  (add-to-list 'load-path jump-dir))
+       (util-dir (file-name-as-directory (expand-file-name "util" this-dir)))
+       (inf-ruby-dir (file-name-as-directory (expand-file-name "inf-ruby" util-dir)))
+       (jump-dir (file-name-as-directory (expand-file-name "jump" util-dir))))
+  (dolist (dir (list util-dir inf-ruby-dir jump-dir))
+    (when (file-exists-p dir)
+      (add-to-list 'load-path dir))))
 ;;;###end-elpa-ignore
 (require 'ruby-mode)
 (require 'inf-ruby)
@@ -528,8 +524,7 @@ and redirects."
       ;; no controller entry so return
       (list controller action))))
 
-(setf
- rinari-jump-schema
+(defvar rinari-jump-schema
  '((model
     "m"
     (("app/controllers/\\1_controller.rb#\\2$" . "app/models/\\1.rb#\\2")
@@ -713,7 +708,8 @@ and redirects."
             (when (re-search-forward "<%=[ \n\r]*render(? *" nil t)
               (setf cv (rinari-ruby-values-from-render (car cv) (cdr cv)))
               (list (car cv) (cdr cv))))))
-      . "app/views/\\1/\\2.*")))))
+      . "app/views/\\1/\\2.*"))))
+ "Jump schema for rinari.")
 
 (defun rinari-apply-jump-schema (schema)
   "Define the rinari-find-* functions by passing each element SCHEMA to `defjump'."
@@ -774,7 +770,7 @@ Otherwise, disable that minor mode if currently enabled."
                     (and (file-exists-p r-tags-path) r-tags-path))
                (run-hooks 'rinari-minor-mode-hook)
                (rinari-minor-mode t))
-      (if (and (fboundp rinari-minor-mode) rinari-minor-mode) (rinari-minor-mode)))))
+      (if (and (fboundp 'rinari-minor-mode) rinari-minor-mode) (rinari-minor-mode)))))
 
 ;;;###autoload
 (defvar rinari-major-modes
@@ -803,6 +799,7 @@ into and out of rails project directories."
 
 ;; Local Variables:
 ;; coding: utf-8
+;; byte-compile-warnings: (not cl-functions)
 ;; eval: (checkdoc-minor-mode 1)
 ;; End:
 
