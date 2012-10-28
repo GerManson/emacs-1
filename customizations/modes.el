@@ -78,4 +78,8 @@
 (setq-default ispell-program-name "aspell")
 
 ;; sql-mode default to postgresql syntax hightlighting
+(setq sql-postgres-program "psql92")
 (add-hook 'sql-mode-hook (lambda () (sql-set-product 'postgres)))
+
+;; Dired+ use a single buffer
+ (toggle-diredp-find-file-reuse-dir 1)
