@@ -49,7 +49,11 @@
 (add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
 
 (require 'slime)
-(slime-setup '(slime-fancy slime-repl slime-editing-commands))
+(slime-setup '(slime-fancy slime-repl slime-editing-commands slime-references))
+
+(add-hook
+ 'slime-repl-mode-hook
+ (lambda () (local-set-key (kbd "C-c C-]") 'slime-close-all-parens-in-sexp)))
 
 ;; Scheme
 (require 'quack)
