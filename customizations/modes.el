@@ -70,6 +70,10 @@
 (require 'rvm)
 (rvm-use-default)
 
+(require 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+
 ;; Use aspell instead of ispell
 (setq-default ispell-program-name "aspell")
 
