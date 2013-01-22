@@ -36,6 +36,31 @@
 ; wrap lines in a tasteful way
 (global-visual-line-mode 1)
 
+; disable auto-save files (#foo#)
+(setq auto-save-default nil)
+
+; disable backup files (foo~)
+(setq backup-inhibited t)
+
+; save minibuffer history across sessions
+(setq savehist-file "~/.emacs.d/.savehist")
+(savehist-mode 1)
+
+; pick up changes to files on disk automatically (ie, after git pull)
+(global-auto-revert-mode t)
+
+; don't confirm opening non-existant files/buffers
+(setq confirm-nonexistent-file-or-buffer nil)
+
+; yes, I want to kill buffers with processes attached
+(setq kill-buffer-query-functions
+  (remq 'process-kill-buffer-query-function
+         kill-buffer-query-functions))
+
+(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+  "Prevent annoying \"Active processes exist\" query when you quit Emacs."
+  (flet ((process-list ())) ad-do-it))
+
 ; ask before exiting
 (defun confirm-exit-emacs ()
         "ask for confirmation before exiting emacs"
@@ -45,3 +70,14 @@
 
 (global-unset-key "\C-x\C-c")
 (global-set-key "\C-x\C-c" 'confirm-exit-emacs)
+
+; Hotkey for truncating lines
+(global-set-key (kbd "<f7>") 'toggle-truncate-lines)
+
+; This function is used too many times, using Meta slows me down
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+
+; Turn cmd key into meta
+(when (eq system-type 'darwin)
+  (setq mac-option-modifier 'none)
+  (setq mac-command-modifier 'meta))
