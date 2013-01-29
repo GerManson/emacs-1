@@ -75,7 +75,12 @@
 (global-set-key (kbd "<f7>") 'toggle-truncate-lines)
 
 ; This function is used too many times, using Meta slows me down
-(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-x\C-m" 'smex)
+
+(global-set-key (kbd "M-x") 'smex-major-mode-commands)
+
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ; Turn cmd key into meta
 (when (eq system-type 'darwin)

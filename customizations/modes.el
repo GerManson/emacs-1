@@ -6,6 +6,10 @@
 (setq ido-create-new-buffer 'always) ; always create a new buffer with Ido
 (setq ido-use-virtual-buffers t)
 
+;; ido for M-x
+(require 'smex) ; Not needed if you use package.el
+(smex-initialize)
+
 ;; Ruby
 (require 'ruby-mode)
 (setq auto-mode-alist (cons '("Gemfile" . ruby-mode) auto-mode-alist))
