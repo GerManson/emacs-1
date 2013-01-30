@@ -11,7 +11,7 @@
 (defconst php-mode-version-number "1.9"
   "PHP Mode version number.")
 
-(defconst php-mode-modified "2013-01-28"
+(defconst php-mode-modified "2013-01-29"
   "PHP Mode build date.")
 
 ;;; License
@@ -1462,7 +1462,7 @@ searching the PHP website."
 
    ;; Fontify keywords and targets, and case default tags.
    (list "\\<\\(break\\|case\\|continue\\)\\>\\s-+\\(-?\\sw+\\)?"
-         '(1 font-lock-keyword-face) '(2 font-lock-constant-face t t))
+         '(1 font-lock-keyword-face) '(2 font-lock-constant-face keep t))
    ;; This must come after the one for keywords and targets.
    '(":" ("^\\s-+\\(\\sw+\\)\\s-+\\s-+$"
           (beginning-of-line) (end-of-line)
@@ -1585,10 +1585,10 @@ searching the PHP website."
     '("\\$\\(\\sw+\\)" (1 font-lock-variable-name-face))
 
     ;; ->function_call
-    '("->\\(\\sw+\\)\\s-*(" (1 php-function-call-face t t))
+    '("->\\(\\sw+\\)\\s-*(" (1 php-function-call-face keep t))
 
     ;; ->variable
-    '("->\\(\\sw+\\)" (1 font-lock-variable-name-face t t))
+    '("->\\(\\sw+\\)" (1 font-lock-variable-name-face keep t))
 
     ;; class::member
     '("\\(\\(\\sw\\|\\\\\\)+\\)::\\sw+\\s-*(?" . (1 font-lock-type-face))
