@@ -1,3 +1,58 @@
+2013-01-12  Stas Boukarev  <stassats@gmail.com>
+
+	* swank-backend.lisp: Add a couple of ignore declarations.
+
+2013-01-11  Stas Boukarev  <stassats@gmail.com>
+
+	* swank-ecl.lisp (accept-connection): Fix a typo, line => :line.
+
+2013-01-11  Helmut Eller  <heller@common-lisp.net>
+
+	* swank.lisp (swank-compile-file*): Renamed from
+	compile-file-with-compile-file.
+
+2013-01-10  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-ecl.lisp (frame-var-value): Return the value without name.
+
+2013-01-09  Helmut Eller  <heller@common-lisp.net>
+
+	* swank.lisp (frame-locals-for-emacs): Print variable names in
+	frame-package.
+
+2013-01-09  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-sbcl.lisp (frame-debug-vars): Only include :valid locals.
+	(*keep-non-valid-locals*): New.
+	(frame-package): New.
+
+2013-01-07  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-ccl.lisp (compiler-warning-short-message): Add a method
+	for ccl::shadowed-typecase-clause.  Whithout that we only get
+	"Nonspecific warning".
+	(function-name-package): Factored out from frame-package.  Add
+	case for standard-method.
+
+2013-01-07  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-ecl.lisp (describe-symbol-for-emacs): Include bound
+	symbols even those without documentation.
+
+	* slime.el (slime-print-apropos): Do some input validation to
+	detect bugs on the Lisp side.
+
+	* swank-backend.lisp (describe-symbol-for-emacs): Allow NIL where
+	:NOT-DOCUMENTED was needed.
+
+2013-01-05  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-ccl.lisp (frame-package): Implemented.
+
+2013-01-05  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-loader.lisp (init): Add a :quiet argument.
+
 2012-12-27  Stas Boukarev  <stassats@gmail.com>
 
 	* swank.lisp (find-definitions-find-symbol-or-package): Rename

@@ -1,3 +1,29 @@
+2013-01-29  Francois-Rene Rideau <tunes@google.com>
+
+	* swank-asdf.lisp: Better upcoming ASDF3 support.
+
+2013-01-20  Stas Boukarev  <stassats@gmail.com>
+
+	* swank-asdf.lisp: Better compatibility with newer ASDF.
+	Patch by Francois-Rene Rideau and Stelian Ionescu.
+
+	Remove auto-upgrading.
+	Rename *asdf-directory* to *asdf-path*, to be a full path to
+	asdf.lisp.
+	Remove #+gcl and #+genera.
+
+2013-01-10  Helmut Eller  <heller@common-lisp.net>
+
+	* slime-autodoc.el (slime-autodoc): Remove :gnu-emacs-only.
+	Suggested by Raymond Toy.
+	(slime-autodoc): Fix long lines.
+
+2013-01-04  Stas Boukarev  <stassats@gmail.com>
+
+	* slime-fancy-inspector.el (slime-edit-inspector-part): New
+	function, tries to find a definition of the part at point. Hooks
+	into `slime-edit-definition-hooks'.
+
 2013-01-03  Stas Boukarev  <stassats@gmail.com>
 
 	* slime-cl-indent.el (define-common-lisp-style "basic"): Don't set
