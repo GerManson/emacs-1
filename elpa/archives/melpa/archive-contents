@@ -260,8 +260,8 @@
 	 [(20121025 1201)
 	  nil "Calls functions dependant on font lock highlighting at point [source: hg]" single])
  (time-ext .
-	   [(20100516 35)
-	    nil "No description available. [source: wiki]" single])
+	   [(20130130 2151)
+	    nil "more function for time/date [source: wiki]" single])
  (tidy .
        [(20111222 1756)
 	nil "Interface to the HTML Tidy program [source: wiki]" single])
@@ -322,8 +322,8 @@
 		    [(20130107 37)
 		     nil "two-pane file manager for Emacs based on Dired and inspired by MC [source: github]" tar])
  (sudo-ext .
-	   [(20110117 710)
-	    nil "No description available. [source: wiki]" single])
+	   [(20130130 2151)
+	    nil "sudo support [source: wiki]" single])
  (sudden-death .
 	       [(20121218 2249)
 		nil "Totsuzen-no-Shi [source: github]" single])
@@ -490,8 +490,8 @@
 	       [(20121224 1121)
 		nil "pure elisp HTTP server [source: github]" tar])
  (simp .
-       [(20130116 2330)
-	nil "Simple project defenition, chiefly for file finding, and grepping [source: github]" tar])
+       [(20130130 1521)
+	nil "Simple project definition, chiefly for file finding, and grepping [source: github]" tar])
  (sicp .
        [(20121012 1733)
 	nil "No description available. [source: github]" tar])
@@ -535,8 +535,8 @@
 	     [(20121205 1135)
 	      nil "No description available. [source: github]" tar])
  (savekill .
-	   [(20110228 1129)
-	    nil "No description available. [source: wiki]" single])
+	   [(20130130 2151)
+	    nil "Save kill ring to disk [source: wiki]" single])
  (save-visited-files .
 		     [(20120615 13)
 		      nil "save opened files across sessions [source: github]" single])
@@ -544,8 +544,8 @@
 	    [(20130106 1542)
 	     nil "save variables in files using setter forms like `setq' [source: github]" tar])
  (save-load-path .
-		 [(20100520 2254)
-		  nil "No description available. [source: wiki]" single])
+		 [(20130130 2150)
+		  nil "save load-path and reuse it to test [source: wiki]" single])
  (sauron .
 	 [(20120903 1145)
 	  nil "Track (erc/org/dbus/...) events and react to them. [source: github]" tar])
@@ -616,7 +616,7 @@
 	   [(20121227 1802)
 	    nil "A major mode for editing RELAX NG Compact syntax. [source: github]" single])
  (rinari .
-	 [(20130107 1109)
+	 [(20130130 1315)
 	  ((ruby-mode
 	    (1 0))
 	   (inf-ruby
@@ -657,8 +657,8 @@
 		   [(20111019 1608)
 		    nil "narrow-to-region that operates recursively [source: github]" single])
  (recentf-ext .
-	      [(20100504 907)
-	       nil "No description available. [source: wiki]" single])
+	      [(20130130 2150)
+	       nil "Recentf extensions [source: wiki]" single])
  (rebox2 .
 	 [(20121113 2100)
 	  nil "Handling of comment boxes in various styles. [source: github]" single])
@@ -709,7 +709,7 @@
 		[(20130124 1603)
 		 nil "Project oriented automatic builder and error highlighter, flymake for projects [source: github]" tar])
  (projectile .
-	     [(20130130 1207)
+	     [(20130131 36)
 	      ((s
 		(1 0 0))
 	       (dash
@@ -896,6 +896,9 @@
  (php+-mode .
 	    [(20121129 1452)
 	     nil "A better PHP mode with Zend Framework 1 support. [source: github]" tar])
+ (pgdevenv .
+	   [(20121205 1612)
+	    nil "Manage your PostgreSQL development envs [source: github]" single])
  (perspective .
 	      [(20121130 1746)
 	       nil "switch between named \"perspectives\" of the editor [source: github]" single])
@@ -941,7 +944,7 @@
 	  [(20110508 1256)
 	   nil "minor mode for editing parentheses [source: darcs]" single])
  (pandoc-mode .
-	      [(20130130 357)
+	      [(20130131 37)
 	       nil "Minor mode for interacting with Pandoc [source: github]" tar])
  (page-break-lines .
 		   [(20121114 931)
@@ -1138,7 +1141,7 @@
 		  [(20121207 1644)
 		   nil "show status of `debug-on-error' in the mode-line [source: github]" single])
  (mmm-mode .
-	   [(20130126 322)
+	   [(20130130 2329)
 	    nil "Allow Multiple Major Modes in a buffer [source: github]" tar])
  (mmm-mako .
 	   [(20121019 2351)
@@ -1463,7 +1466,7 @@
 		[(20130111 1820)
 		 nil "Major mode API client for status.net open microblogging [source: github]" tar])
  (icicles .
-	  [(20130130 1618)
+	  [(20130130 1654)
 	   nil "Minibuffer input completion and cycling. [source: wiki]" tar])
  (ibuffer-vc .
 	     [(20121217 826)
@@ -1663,7 +1666,7 @@
 		   [(20121018 923)
 		    nil "Emacs interface to Google Translate [source: github]" single])
  (google-this .
-	      [(20120629 1421)
+	      [(20130130 1857)
 	       nil "A set of functions and bindings to google under point. [source: github]" single])
  (google-maps .
 	      [(20120804 1804)
@@ -1705,8 +1708,8 @@
 	     [(20130124 1923)
 	      nil "Port of Sublime Text 2 plugin GitGutter [source: github]" single])
  (git-dwim .
-	   [(20100717 614)
-	    nil "No description available. [source: wiki]" single])
+	   [(20130130 2150)
+	    nil "Context-aware git commands such as branch handling [source: wiki]" single])
  (git-commit-mode .
 		  [(20130127 1541)
 		   nil "Major mode for editing git commit messages [source: github]" single])
@@ -2014,7 +2017,7 @@
 	   [(20120413 1107)
 	    nil "Emacs window session manager [source: github]" single])
  (elpy .
-       [(20130129 1027)
+       [(20130130 2255)
 	((auto-complete
 	  (1 4))
 	 (yasnippet
@@ -2030,7 +2033,9 @@
 	 (idomenu
 	  (0 1))
 	 (nose
-	  (0 1 1)))
+	  (0 1 1))
+	 (iedit
+	  (0 97)))
 	"Emacs Lisp Python Environment [source: github]" single])
  (elpa-audit .
 	     [(20121121 1747)
@@ -2066,7 +2071,7 @@
 	      [(20121205 328)
 	       nil "server that responds to edit requests from Chrome [source: github]" single])
  (ecukes .
-	 [(20130112 1527)
+	 [(20130130 2114)
 	  ((s
 	    (1 3 0))
 	   (dash
@@ -2470,8 +2475,8 @@
 	[(20110112 258)
 	 nil "ASCII code display. [source: wiki]" single])
  (archive-region .
-		 [(20130124 2157)
-		  nil "No description available. [source: wiki]" single])
+		 [(20130130 2149)
+		  nil "Move region to archive file instead of killing [source: wiki]" single])
  (applescript-mode .
 		   [(20090320 2332)
 		    nil "major mode for editing AppleScript source [source: github]" single])

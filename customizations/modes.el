@@ -1,15 +1,14 @@
 ;; Interactively Do Things
 (require 'ido)
+(require 'ido-ubiquitous)
 (ido-mode t)
 (setq ido-enable-flex-matching t) ; case insensitive matching
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 (setq ido-create-new-buffer 'always) ; always create a new buffer with Ido
 (ido-everywhere t)
 
-(require 'ido-ubiquitous)
-
 ;; ido for M-x
-(require 'smex) ; Not needed if you use package.el
+(require 'smex)
 (smex-initialize)
 
 ;; Ruby
@@ -63,12 +62,17 @@
  (lambda () (local-set-key (kbd "C-c C-]") 'slime-close-all-parens-in-sexp)))
 
 (cond ((eq system-type 'gnu/linux) (setq inferior-lisp-program "/usr/bin/sbcl"))
-      ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl"))
-      ((eq system-type 'windows-nt) (setq inferior-lisp-program "C:/Progra~2/SteelB~1/1.0.55/sbcl.exe")))
+      ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl")))
 
 (add-to-list 'load-path "~/.emacs.d/vendor/slime/contrib/")
-;; recognize ASDF files used by newer CL systems:
 (add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
+
+;; Paredit
+(require 'paredit)
+(add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode 1)))
+(add-hook 'lisp-mode-hook             (lambda () (paredit-mode 1)))
+(add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode 1)))
+(add-hook 'scheme-mode-hook           (lambda () (paredit-mode 1)))
 
 ;; Scheme
 (require 'quack)
@@ -90,20 +94,3 @@
 ;; Colorful shell
 (require 'ansi-color)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
-; set paths (only on MacOS X)
-(when (equal system-type 'darwin)
-  (load-file "/Applications/Emacs.app/Contents/Resources/lisp/shell.el.gz")
-  (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
-  (push "/opt/local/bin" exec-path))
-
-;; Use aspell instead of ispell
-(setq-default ispell-program-name "aspell")
-
-;; sql-mode default to postgresql syntax hightlighting
-(setq sql-postgres-program "psql92")
-(setq sql-mysql-program "mysql5")
-(add-hook 'sql-mode-hook (lambda () (sql-set-product 'postgres)))
-
-;; Dired+ use a single buffer
-(toggle-diredp-find-file-reuse-dir 1)
