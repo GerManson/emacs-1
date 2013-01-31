@@ -55,17 +55,14 @@
 
 ;; Common Lisp
 (require 'slime)
-(slime-setup '(slime-fancy slime-repl slime-editing-commands slime-references))
-
-(add-hook
- 'slime-repl-mode-hook
- (lambda () (local-set-key (kbd "C-c C-]") 'slime-close-all-parens-in-sexp)))
+(add-hook 'slime-repl-mode-hook  (lambda () (local-set-key (kbd "C-c C-]") 'slime-close-all-parens-in-sexp)))
+(add-to-list 'load-path "~/.emacs.d/vendor/slime/contrib/")
+(add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
 
 (cond ((eq system-type 'gnu/linux) (setq inferior-lisp-program "/usr/bin/sbcl"))
       ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl")))
 
-(add-to-list 'load-path "~/.emacs.d/vendor/slime/contrib/")
-(add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
+(slime-setup '(slime-fancy slime-repl slime-editing-commands slime-references))
 
 ;; Paredit
 (require 'paredit)
