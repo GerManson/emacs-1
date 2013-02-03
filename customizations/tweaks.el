@@ -81,5 +81,5 @@
   (setq sql-mysql-program "mysql5")
 
   ; Turn cmd key into meta
-  (setq mac-option-modifier 'none)
+;  (setq mac-option-modifier 'none)
   (setq mac-command-modifier 'meta))
