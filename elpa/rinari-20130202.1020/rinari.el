@@ -77,6 +77,7 @@
 (require 'ruby-compilation)
 (require 'jump)
 (require 'cl)
+(require 'easymenu)
 
 ;; fill in some missing variables for XEmacs
 (when (eval-when-compile (featurep 'xemacs))
@@ -201,11 +202,12 @@ leave this to the environment variables outside of Emacs.")
   "Return the root directory of the project within which DIR is found.
 Optional argument HOME is ignored."
   (let ((default-directory (or dir default-directory)))
-    (if (file-exists-p (expand-file-name "environment.rb" (expand-file-name "config")))
-        default-directory
-      ;; regexp to match windows roots, tramp roots, or regular posix roots
-      (unless (string-match "\\(^[[:alpha:]]:/$\\|^/[^\/]+:/?$\\|^/$\\)" default-directory)
-        (rinari-root (expand-file-name (file-name-as-directory "..")))))))
+    (when (file-directory-p default-directory)
+      (if (file-exists-p (expand-file-name "environment.rb" (expand-file-name "config")))
+          default-directory
+        ;; regexp to match windows roots, tramp roots, or regular posix roots
+        (unless (string-match "\\(^[[:alpha:]]:/$\\|^/[^\/]+:/?$\\|^/$\\)" default-directory)
+          (rinari-root (expand-file-name (file-name-as-directory ".."))))))))
 
 (defun rinari-highlight-keywords (keywords)
   "Highlight the passed KEYWORDS in current buffer.
@@ -833,21 +835,63 @@ and redirects."
                     rinari-minor-mode-keybindings))
   (rinari-bind-key-to-func (car el) (cdr el)))
 
+(easy-menu-define rinari-minor-mode-menu rinari-minor-mode-map
+  "Rinari menu"
+  '("Rinari"
+    ["Search" rinari-rgrep t]
+    "---"
+    ["Find file in project" rinari-find-file-in-project t]
+    ["Find file by context" rinari-find-by-context t]
+    ("Jump to..."
+     ["Model" rinari-find-model t]
+     ["Controller" rinari-find-controller t]
+     ["View" rinari-find-view t]
+     ["Helper" rinari-find-helper t]
+     ["Worker" rinari-find-worker t]
+     ["Mailer" rinari-find-mailer t]
+     "---"
+     ["Javascript" rinari-find-javascript t]
+     ["Stylesheet" rinari-find-stylesheet t]
+     ["Sass" rinari-find-sass t]
+     ["public/" rinari-find-public t]
+     "---"
+     ["Test" rinari-find-test t]
+     ["Rspec" rinari-find-rspec t]
+     ["Fixture" rinari-find-fixture t]
+     ["Rspec fixture" rinari-find-rspec-fixture t]
+     ["Feature" rinari-find-features t]
+     ["Step" rinari-find-steps t]
+     "---"
+     ["application.rb" rinari-find-application t]
+     ["config/" rinari-find-configuration t]
+     ["environments/" rinari-find-environment t]
+     ["migrate/" rinari-find-migration t]
+     ["lib/" rinari-find-lib t]
+     ["script/" rinari-find-script t]
+     ["log/" rinari-find-log t])
+    "---"
+    ("Web server"
+     ["Start" rinari-web-server t]
+     ["Restart" rinari-web-server-restart t])
+    ["Console" rinari-console t]
+    ["SQL prompt" rinari-sql t]
+    "---"
+    ["Script" rinari-script t]
+    ["Rake" rinari-rake t]
+    ["Cap" rinari-cap t]))
+
 ;;;###autoload
 (defun rinari-launch ()
   "Call function `rinari-minor-mode' if inside a rails project.
 Otherwise, disable that minor mode if currently enabled."
   (interactive)
-  (let* ((root (rinari-root))
-         (r-tags-path (concat root rinari-tags-file-name)))
+  (let ((root (rinari-root)))
     (if root
-        (progn
+        (let ((r-tags-path (concat root rinari-tags-file-name)))
           (set (make-local-variable 'tags-file-name)
                (and (file-exists-p r-tags-path) r-tags-path))
-          (run-hooks 'rinari-minor-mode-hook)
           (rinari-minor-mode t))
-      (when (and (fboundp 'rinari-minor-mode) rinari-minor-mode)
-        (rinari-minor-mode)))))
+      (rinari-minor-mode -1))))
 
 (defun rinari-launch-maybe ()
   "Call `rinari-launch' if customized to do so.
