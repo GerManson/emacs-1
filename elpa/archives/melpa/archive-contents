@@ -499,7 +499,7 @@
 	    [(20121227 1032)
 	     nil "Rip Clojure namespaces apart and rebuild them. [source: github]" single])
  (skewer-mode .
-	      [(20130208 1602)
+	      [(20130212 1520)
 	       ((simple-httpd
 		 (1 4 0))
 		(js2-mode
@@ -1275,7 +1275,7 @@
 	  (1 1)))
 	"build functions which contextually jump between files [source: github]" single])
  (js3-mode .
-	   [(20130114 1516)
+	   [(20130212 1353)
 	    nil "JavaScript scanner [source: github]" tar])
  (js2-refactor .
 	       [(20121207 2257)
@@ -1305,7 +1305,7 @@
 		[(20121004 1726)
 		 nil "Watch continuous integration build status [source: github]" single])
  (jedi .
-       [(20130210 1518)
+       [(20130212 1349)
 	((epc
 	  (0 1 0))
 	 (auto-complete

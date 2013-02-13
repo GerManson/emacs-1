@@ -61,7 +61,7 @@
 (setq-default ispell-program-name "aspell")
 
 ;; sql-mode default to postgresql syntax hightlighting
-(add-hook 'sql-mode-hook (lambda () (sql-set-product 'postgres)))
+(add-hook 'sql-mode-hook (lambda () (sql-set-product 'mysql)))
 
 ;; Dired+ use a single buffer
 (toggle-diredp-find-file-reuse-dir 1)
@@ -78,7 +78,7 @@
 
   ; Database clients for MacOS X
   (setq sql-postgres-program "psql92")
-  (setq sql-mysql-program "mysql5")
+  (setq sql-mysql-program "mysql")
 
   ; Turn cmd key into meta
 ;  (setq mac-option-modifier 'none)
