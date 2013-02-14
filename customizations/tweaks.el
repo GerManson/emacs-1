@@ -76,9 +76,12 @@
   (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
   (push "/opt/local/bin" exec-path)
 
+  ; Shell path
+  (setq explicit-shell-file-name "/opt/local/bin/bash")
+
   ; Database clients for MacOS X
   (setq sql-postgres-program "psql92")
-  (setq sql-mysql-program "mysql")
+  (setq sql-mysql-program "/opt/local/lib/mysql55/bin/mysql")
 
   ; Turn cmd key into meta
 ;  (setq mac-option-modifier 'none)
