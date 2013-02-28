@@ -120,7 +120,7 @@
 	[(20130114 1335)
 	 nil "Writable grep buffer and apply the changes to files [source: github]" single])
  (weechat .
-	  [(20130226 1924)
+	  [(20130228 121)
 	   nil "No description available. [source: github]" tar])
  (websocket .
 	    [(20130123 2144)
@@ -646,7 +646,7 @@
 		[(20130127 1902)
 		 nil "Minor mode with electric editing commands for Ruby files [source: github]" single])
  (ruby-compilation .
-		   [(20121209 2156)
+		   [(20130227 1154)
 		    ((inf-ruby
 		      (2 2 1)))
 		    "run a ruby process in a compilation buffer [source: github]" single])
@@ -690,13 +690,13 @@
 	 [(20121022 1311)
 	  nil "Resume Emacs [source: github]" single])
  (restclient .
-	     [(20130219 1357)
+	     [(20130227 1916)
 	      nil "An interactive HTTP client for Emacs [source: github]" tar])
  (requirejs-mode .
 		 [(20130215 1604)
 		  nil "Improved AMD module management [source: github]" single])
  (request .
-	  [(20130110 2144)
+	  [(20130227 1921)
 	   nil "Compatible layer for URL request in Emacs [source: github]" tar])
  (replace-from-region .
 		      [(20130130 117)
@@ -754,7 +754,7 @@
 	       [(20120505 1355)
 		nil "outline mode extension for python mode [source: wiki]" single])
  (python .
-	 [(20130212 1510)
+	 [(20130227 2146)
 	  nil "Python's flying circus support for Emacs [source: github]" single])
  (pyregexp .
 	   [(20120919 1909)
@@ -900,6 +900,11 @@
  (pandoc-mode .
 	      [(20130218 2209)
 	       nil "Minor mode for interacting with Pandoc [source: github]" tar])
+ (pallet .
+	 [(20130227 2125)
+	  ((carton
+	    (0 1 1)))
+	  "A package manager for Emacs, using Carton. [source: github]" tar])
  (page-break-lines .
 		   [(20130201 1817)
 		    nil "Display ugly ^L page breaks as tidy horizontal lines [source: github]" single])
@@ -1017,8 +1022,8 @@
 	    [(20120710 1922)
 	     nil "Nyan Cat shows position in current buffer in mode-line. [source: github]" tar])
  (nurumacs .
-	   [(20130225 1258)
-	    nil "smooth-scrolling and minimap [source: github]" single])
+	   [(20130228 322)
+	    nil "smooth-scrolling and minimap, like sublime editor [source: github]" single])
  (nrepl-ritz .
 	     [(20130224 2047)
 	      ((nrepl
@@ -1112,7 +1117,7 @@
 		  [(20121207 1644)
 		   nil "show status of `debug-on-error' in the mode-line [source: github]" single])
  (mmm-mode .
-	   [(20130225 2303)
+	   [(20130227 2146)
 	    nil "Allow Multiple Major Modes in a buffer [source: github]" tar])
  (mmm-mako .
 	   [(20121019 2351)
@@ -1168,7 +1173,7 @@
 		[(20130121 1039)
 		 nil "Emacs Major mode for Markdown-formatted text files [source: github]" single])
  (mark-tools .
-	     [(20130225 1552)
+	     [(20130227 1129)
 	      nil "Some simple tools to access the mark-ring in Emacs [source: github]" single])
  (mark-multiple .
 		[(20121118 1654)
@@ -1460,6 +1465,9 @@
 		     (pcache
 		      (0 2 3)))
 		    "Load-library alternative using ido-completing-read [source: github]" single])
+ (ido-complete-space-or-hyphen .
+			       [(20130227 1926)
+				nil "Complete SPACE or HYPHEN when type SPACE in ido [source: github]" single])
  (idle-require .
 	       [(20090716 3)
 		nil "load elisp libraries while Emacs is idle [source: github]" single])
@@ -1529,6 +1537,9 @@
  (hide-comnt .
 	     [(20121228 2128)
 	      nil "Hide/show comments in code. [source: wiki]" single])
+ (hexrgb .
+	 [(20130118 1705)
+	  nil "Functions to manipulate colors, including RGB hex strings. [source: wiki]" single])
  (heroku .
 	 [(20120629 1113)
 	  nil "Interface to Heroku apps. [source: github]" single])
@@ -1709,7 +1720,7 @@
 		 [(20130226 1532)
 		  nil "Major mode for editing .gitignore files [source: github]" single])
  (gitconfig-mode .
-		 [(20130226 1532)
+		 [(20130227 1617)
 		  nil "Major mode for editing .gitconfig files [source: github]" single])
  (git-gutter-fringe .
 		    [(20130220 2344)
@@ -1719,13 +1730,13 @@
 		       (0 1 1)))
 		     "Fringe version of git-gutter.el [source: github]" single])
  (git-gutter .
-	     [(20130224 1800)
+	     [(20130227 2228)
 	      nil "Port of Sublime Text 2 plugin GitGutter [source: github]" single])
  (git-dwim .
 	   [(20130130 2150)
 	    nil "Context-aware git commands such as branch handling [source: wiki]" single])
  (git-commit-mode .
-		  [(20130226 1532)
+		  [(20130227 1615)
 		   nil "Major mode for editing git commit messages [source: github]" single])
  (git-blame .
 	    [(20110509 1226)
@@ -1955,7 +1966,7 @@
 	      [(20090327 1737)
 	       nil "Set tags table(s) based on current file [source: wiki]" single])
  (esxml .
-	[(20130220 1829)
+	[(20130227 1643)
 	 ((kv
 	   (0 0 5)))
 	 "Library for working with xml via esxml and sxml [source: github]" single])
@@ -1979,7 +1990,7 @@
 		   (0 1)))
 		 "Move the region in 4 directions, in a way similar to Eclipse's [source: github]" single])
  (es-lib .
-	 [(20130205 451)
+	 [(20130227 1626)
 	  nil "A collection of emacs utilities [source: github]" tar])
  (es-edit-color-stamp .
 		      [(20130125 1651)
@@ -2365,6 +2376,11 @@
 		      (nrepl
 		       (0 1 7)))
 		     "Minor mode for Clojure tests [source: github]" single])
+ (clojure-snippets .
+		   [(20130227 2243)
+		    ((yasnippet
+		      (0 8 0)))
+		    "Yasnippets for clojure [source: github]" tar])
  (clojure-mode .
 	       [(20130225 1036)
 		nil "Major mode for Clojure code [source: github]" single])
@@ -2470,7 +2486,7 @@
        [(20130216 1043)
 	nil "core of BBDB [source: git]" tar])
  (bbcode-mode .
-	      [(20130226 1732)
+	      [(20130227 1437)
 	       nil "Major mode for writing BBCode markup [source: github]" single])
  (bash-completion .
 		  [(20111120 1539)
