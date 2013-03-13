@@ -12,6 +12,8 @@
 (global-unset-key "\C-x\C-c")
 (global-set-key "\C-x\C-c" 'confirm-exit-emacs)
 
+(global-set-key (kbd "C-e") 'end-of-line)
+
 ; Hotkey for truncating lines
 (global-set-key (kbd "<f7>") 'toggle-truncate-lines)
 
