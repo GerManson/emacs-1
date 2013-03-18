@@ -131,7 +131,7 @@
 	       (1 6 8)))
 	     "Weblog maintenance via XML-RPC APIs [source: bzr]" single])
  (web-mode .
-	   [(20130314 2250)
+	   [(20130317 2218)
 	    nil "major mode for editing HTML templates [source: github]" single])
  (wc-mode .
 	  [(20120531 1344)
@@ -522,7 +522,7 @@
 		  [(20121202 1829)
 		   nil "Intelligently indent with tabs, align with spaces! [source: github]" single])
  (smart-tab .
-	    [(20130304 1509)
+	    [(20130317 1157)
 	     nil "Intelligent tab completion and indentation. [source: github]" single])
  (smart-operator .
 		 [(20051013 1756)
@@ -1191,6 +1191,9 @@
  (mediawiki .
 	    [(20130223 1441)
 	     nil "mediawiki frontend [source: bzr]" single])
+ (mc-jump .
+	  [(20130317 1744)
+	   nil "like \"jump-char\", but \"multiple-cursors\" friendly [source: github]" single])
  (maxframe .
 	   [(20120725 1149)
 	    nil "maximize the emacs frame based on display size [source: github]" single])
@@ -1246,7 +1249,7 @@
 			       [(20121223 154)
 				nil "Advice for magit-log-edit-commit [source: github]" single])
  (magit .
-	[(20130316 2111)
+	[(20130317 2323)
 	 nil "Control Git from Emacs. [source: github]" tar])
  (mag-menu .
 	   [(20130224 56)
@@ -1260,7 +1263,7 @@
 	     [(20090309 1715)
 	      nil "in-buffer mathematical operations [source: github]" single])
  (lua-mode .
-	   [(20130317 124)
+	   [(20130318 512)
 	    nil "a major-mode for editing Lua scripts [source: github]" single])
  (lorem-ipsum .
 	      [(20051013 1756)
@@ -1427,7 +1430,7 @@
 		[(20121004 1726)
 		 nil "Watch continuous integration build status [source: github]" single])
  (jedi .
-       [(20130315 1610)
+       [(20130317 927)
 	((epc
 	  (0 1 0))
 	 (auto-complete
@@ -1475,7 +1478,7 @@
 	      [(20130218 1210)
 	       nil "Loader for configuration files [source: github]" single])
  (info+ .
-	[(20130226 1905)
+	[(20130317 2139)
 	 nil "Extensions to `info.el'. [source: wiki]" single])
  (inflections .
 	      [(20121016 957)
@@ -1487,7 +1490,7 @@
 	    [(20130305 127)
 	     nil "Run a MongoDB shell process in a buffer [source: github]" single])
  (import-popwin .
-		[(20130203 1632)
+		[(20130318 1018)
 		 ((popwin
 		   (0 6)))
 		 "popwin buffer near by import statements with popwin [source: github]" single])
@@ -1539,7 +1542,7 @@
 		[(20130204 1653)
 		 nil "Major mode API client for status.net open microblogging [source: github]" tar])
  (icicles .
-	  [(20130317 54)
+	  [(20130318 54)
 	   nil "Minibuffer input completion and cycling. [source: wiki]" tar])
  (ibuffer-vc .
 	     [(20121217 826)
@@ -1622,10 +1625,10 @@
 		 (20120811)))
 	       "Migemo plug-in for helm [source: github]" single])
  (helm-mercurial-queue .
-		       [(20130226 1504)
+		       [(20130317 2030)
 			nil "No description available. [source: github]" tar])
  (helm-ls-git .
-	      [(20130310 1401)
+	      [(20130317 2028)
 	       nil "list git files. [source: github]" single])
  (helm-gtags .
 	     [(20130309 100)
@@ -2549,7 +2552,7 @@
 	    (1 3 1)))
 	  "Emacs dependency management made easy [source: github]" tar])
  (caml .
-       [(20130309 1638)
+       [(20130317 1217)
 	nil "OCaml code editing commands for Emacs [source: svn]" tar])
  (calfw-gcal .
 	     [(20120111 1900)
@@ -2661,7 +2664,7 @@
 		nil "Auto install elisp file [source: wiki]" single])
  (auto-indent-mode .
 		   [(20130313 1527)
-		    nil "Auto indent Minor mode [source: github]" single])
+		    nil "Auto indent Minor mode [source: github]" tar])
  (auto-complete-clang .
 		      [(20120612 2224)
 		       nil "Auto Completion source for clang for GNU Emacs [source: github]" single])

@@ -31,10 +31,22 @@
 (add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
 
 ;; JavaScript
-(require 'js)
-(autoload 'js-mode "js" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
+(require 'js2-mode)
+(autoload 'js2-mode "js" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . js2-mode))
+
+(require 'js-comint)
+(cond ((eq system-type 'darwin) (setq inferior-js-program-command "/opt/local/bin/node -i")))
+(add-hook 'inferior-js-mode-hook
+          (lambda ()
+        ;; We like nice colors
+        (ansi-color-for-comint-mode-on)
+        ;; Deal with some prompt nonsense
+        (add-to-list
+         'comint-preoutput-filter-functions
+         (lambda (output)
+           (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output)))))
 
 ;; PHP
 (require 'php-mode)
