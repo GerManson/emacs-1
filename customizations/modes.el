@@ -104,3 +104,12 @@
 ;; Colorful shell
 (require 'ansi-color)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+(require 'org)
+(add-hook 'org-mode-hook
+          (lambda ()
+             (setq org-todo-keyword-faces
+                   '(("COMMITTED" . (:foreground "yellow"))
+                     ("DONE" . (:foreground "cyan"))
+                     ("TO-CODE" . (:foreground "magenta"))
+                     ("TODO" . (:foreground "white"))))))
