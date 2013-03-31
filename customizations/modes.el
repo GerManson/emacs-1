@@ -51,9 +51,6 @@
 ;; PHP
 (require 'php-mode)
 
-;; C#
-(require 'csharp-mode)
-
 ;; Git
 (require 'magit)
 (autoload 'magit-status "magit" nil t)
