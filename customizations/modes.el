@@ -113,3 +113,6 @@
                      ("DONE" . (:foreground "cyan"))
                      ("TO-CODE" . (:foreground "magenta"))
                      ("TODO" . (:foreground "white"))))))
+
+; electric-pair-mode
+(electric-pair-mode)
