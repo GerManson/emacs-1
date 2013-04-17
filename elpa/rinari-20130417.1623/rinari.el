@@ -4,7 +4,8 @@
 
 ;; Author: Phil Hagelberg, Eric Schulte
 ;; URL: https://github.com/eschulte/rinari
-;; Version: DEV
+;; Version: 20130417.1623
+;; X-Original-Version: DEV
 ;; Created: 2006-11-10
 ;; Keywords: ruby, rails, project, convenience, web
 ;; EmacsWiki: Rinari
@@ -277,7 +278,7 @@ Use `font-lock-add-keywords' in case of `ruby-mode' or
          (script (or script (jump-completing-read "Script: " completions)))
          (ruby-compilation-error-regexp-alist ;; for jumping to newly created files
           (if (equal script "generate")
-              '(("^ +\\(exists\\|create\\) +\\([^[:space:]]+\\.rb\\)" 2 3))
+              '(("^ +\\(exists\\|create\\) +\\([^[:space:]]+\\)" 2 3 nil 0 2))
             ruby-compilation-error-regexp-alist))
          (script (concat (rinari--wrap-rails-command script) " ")))
     (ruby-compilation-run (concat script (read-from-minibuffer script)))))
@@ -891,7 +892,8 @@ Otherwise, disable that minor mode if currently enabled."
           (set (make-local-variable 'tags-file-name)
                (and (file-exists-p r-tags-path) r-tags-path))
           (rinari-minor-mode t))
-      (rinari-minor-mode -1))))
+      (when rinari-minor-mode
+        (rinari-minor-mode -1)))))
 
 (defun rinari-launch-maybe ()
   "Call `rinari-launch' if customized to do so.

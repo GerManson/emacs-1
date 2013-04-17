@@ -3,8 +3,8 @@
 ;;; Code:
 
 
-;;;### (autoloads (php-mode php) "php-mode" "php-mode.el" (20819
-;;;;;;  39471))
+;;;### (autoloads (php-mode php) "php-mode" "php-mode.el" (20847
+;;;;;;  2041))
 ;;; Generated autoloads from php-mode.el
 
 (let ((loads (get 'php 'custom-loads))) (if (member '"php-mode" loads) nil (put 'php 'custom-loads (cons '"php-mode" loads))))
@@ -23,7 +23,7 @@ Major mode for editing PHP code.
 ;;;***
 
 ;;;### (autoloads nil nil ("php-mode-pkg.el" "php-mode-test.el")
-;;;;;;  (20819 39471 859398))
+;;;;;;  (20847 2041 452606))
 
 ;;;***
 
