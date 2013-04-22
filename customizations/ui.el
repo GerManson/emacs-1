@@ -24,4 +24,4 @@
         ((eq system-type 'windows-nt)
          (set-face-attribute 'default nil :font "Consolas-11"))
         ((eq system-type 'darwin)
-         (set-face-attribute 'default nil :font "Inconsolata-13"))))
+         (set-face-attribute 'default nil :font "Source Code Pro ExtraLight-10:antialias=false"))))
