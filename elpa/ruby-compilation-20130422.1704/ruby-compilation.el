@@ -4,8 +4,8 @@
 
 ;; Author: Eric Schulte
 ;; URL: https://github.com/eschulte/rinari
-;; Version: 20130415.1618
-;; X-Original-Version: 0.13
+;; Version: 20130422.1704
+;; X-Original-Version: 0.16
 ;; Created: 2008-08-23
 ;; Keywords: test convenience
 ;; Package-Requires: ((inf-ruby "2.2.1"))
@@ -48,12 +48,6 @@
 
 ;;; Code:
 
-;; fill in some missing variables for XEmacs
-(when (featurep 'xemacs)
-  ;;this variable does not exist in XEmacs
-  (defvar safe-local-variable-values ())
-  ;;find-file-hook is not defined and will otherwise not be called by XEmacs
-  (define-compatible-variable-alias 'find-file-hook 'find-file-hooks))
 (require 'ansi-color)
 (require 'pcomplete)
 (require 'compile)
@@ -87,52 +81,65 @@ Should be used with `make-local-variable'.")
 
 ;;; Core plumbing
 
-(defun ruby-compilation--adjust-paths (string)
-  (replace-regexp-in-string
-   "^\\([\t ]+\\)/test" "\\1test"
-   (replace-regexp-in-string "\\[/test" "[test" string)))
+(defun ruby-compilation--adjust-paths (beg end)
+  (save-excursion
+    (goto-char beg)
+    (while (re-search-forward "\\(^[\t ]+\\|\\[\\)/test" end t)
+      (replace-match "\\1test"))))
 
-(defun ruby-compilation--insertion-filter (proc string)
-  "When PROC sends STRING, strip ansi color codes and insert into buffer."
-  (with-current-buffer (process-buffer proc)
-    (let ((moving (= (point) (process-mark proc))))
-      (save-excursion
-	(goto-char (process-mark proc))
-	(insert (ansi-color-apply (ruby-compilation--adjust-paths string)))
-	(set-marker (process-mark proc) (point)))
-      (when moving
-        (goto-char (process-mark proc))))))
+(defun ruby-compilation-filter ()
+  "Filter function for compilation output."
+  (save-excursion
+    (forward-line 0)
+    (let ((end (point)) beg)
+      (goto-char compilation-filter-start)
+      (forward-line 0)
+      (setq beg (point))
+      ;; Only operate on whole lines so we don't get caught with part of an
+      ;; escape sequence in one chunk and the rest in another.
+      (when (< (point) end)
+        (setq end (copy-marker end))
+        (ansi-color-apply-on-region beg end)
+        (ruby-compilation--adjust-paths beg end)))))
 
-(defun ruby-compilation--sentinel (proc msg)
-  "When the state of PROC changes, display the corresponding MSG."
-  (message "%s - %s" proc (replace-regexp-in-string "\n" "" msg)))
+(defvar ruby-compilation--buffer-name nil
+  "Used to store compilation name so recompilation works as expected.")
+(make-variable-buffer-local 'ruby-compilation--buffer-name)
+
+(defun ruby-compilation--kill-any-orphan-proc ()
+  "Ensure any dangling buffer process is killed."
+  (let ((orphan-proc (get-buffer-process (buffer-name))))
+    (when orphan-proc
+      (kill-process orphan-proc))))
+
+(define-compilation-mode ruby-compilation-mode "Ruby"
+  "Ruby compilation mode."
+  (progn
+    (set (make-local-variable 'compilation-error-regexp-alist) ruby-compilation-error-regexp-alist)
+    (add-hook 'compilation-filter-hook 'ruby-compilation-filter nil t)
+    ;; Set any bound buffer name buffer-locally
+    (setq ruby-compilation--buffer-name ruby-compilation--buffer-name)
+    (set (make-local-variable 'kill-buffer-hook)
+         'ruby-compilation--kill-any-orphan-proc)))
 
 ;; Low-level API entry point
 (defun ruby-compilation-do (name cmdlist)
-  "In a compilation buffer identified by NAME, run CMDLIST."
+  "In a buffer identified by NAME, run CMDLIST in `ruby-compilation-mode'.
+Returns the compilation buffer."
   (save-some-buffers (not compilation-ask-about-save)
                      (when (boundp 'compilation-save-buffers-predicate)
                        compilation-save-buffers-predicate))
-  (let ((this-dir default-directory)
-        (existing-buffer (get-buffer (concat "*" name "*"))))
+  (let* ((this-dir default-directory)
+         (ruby-compilation--buffer-name (concat "*" name "*"))
+         (existing-buffer (get-buffer ruby-compilation--buffer-name)))
     (when existing-buffer (with-current-buffer existing-buffer
-                            (setq default-directory this-dir))))
-  (let* ((buffer (apply 'make-comint name (car cmdlist) nil (cdr cmdlist)))
-         (proc (get-buffer-process buffer)))
-    (with-current-buffer buffer
-      (buffer-disable-undo)
-      (set-process-sentinel proc 'ruby-compilation--sentinel)
-      (set-process-filter proc 'ruby-compilation--insertion-filter)
-      (set (make-local-variable 'compilation-error-regexp-alist)
-           ruby-compilation-error-regexp-alist)
-      (set (make-local-variable 'kill-buffer-hook)
-           (lambda ()
-             (let ((orphan-proc (get-buffer-process (buffer-name))))
-               (when orphan-proc
-                 (kill-process orphan-proc)))))
-      (compilation-minor-mode t)
-      (ruby-compilation-minor-mode t)
-      (buffer-name))))
+                            (setq default-directory this-dir)))
+    (with-current-buffer
+        (compilation-start
+         (concat (car cmdlist) " "
+                 (mapconcat 'shell-quote-argument (cdr cmdlist) " "))
+         'ruby-compilation-mode
+         (lambda (b) ruby-compilation--buffer-name)))))
 
 (defun ruby-compilation--skip-past-errors (line-incr)
   "Repeatedly move LINE-INCR lines forward until the current line is not an error."
@@ -198,7 +205,7 @@ place of the script name to construct the name of the compilation
 buffer."
   (interactive "FRuby Comand: ")
   (let ((name (or name (file-name-nondirectory (car (split-string cmd)))))
-	(cmdlist (append (list ruby-compilation-executable)
+        (cmdlist (append (list ruby-compilation-executable)
                          ruby-options
                          (split-string (expand-file-name cmd)))))
     (pop-to-buffer (ruby-compilation-do name cmdlist))))
@@ -215,7 +222,7 @@ buffer."
 (defun ruby-compilation-extract-output-matches (command pattern)
   "Run COMMAND, and return all the matching strings for PATTERN."
   (delq nil (mapcar #'(lambda(line)
-			(when (string-match pattern line)
+                        (when (string-match pattern line)
                           (match-string 1 line)))
                   (split-string (shell-command-to-string command) "[\n]"))))
 
@@ -242,16 +249,16 @@ is not supplied, the user will be prompted.  ENV-VARS is an
 optional list of (name . value) pairs which will be passed to rake."
   (interactive "P")
   (let* ((task (concat
-		(or task (if (stringp edit) edit)
-		    (completing-read "Rake: " (pcmpl-rake-tasks)))
-		" "
-		(ruby-compilation--format-env-vars env-vars)))
-	 (rake-args (if (and edit (not (stringp edit)))
-			(read-from-minibuffer "Edit Rake Command: " (concat task " "))
-		      task)))
+                (or task (if (stringp edit) edit)
+                    (completing-read "Rake: " (pcmpl-rake-tasks)))
+                " "
+                (ruby-compilation--format-env-vars env-vars)))
+         (rake-args (if (and edit (not (stringp edit)))
+                        (read-from-minibuffer "Edit Rake Command: " (concat task " "))
+                      task)))
     (pop-to-buffer (ruby-compilation-do
-		    "rake" (cons ruby-compilation-executable-rake
-				 (split-string rake-args))))))
+                    "rake" (cons ruby-compilation-executable-rake
+                                 (split-string rake-args))))))
 
 
 (defun pcmpl-cap-tasks ()
@@ -272,22 +279,22 @@ optional list of (name . value) pairs which will be passed to
 capistrano."
   (interactive "P")
   (let* ((task (concat
-		(or task
+                (or task
                     (when (stringp edit) edit)
-		    (completing-read "Cap: " (pcmpl-cap-tasks)))
-		" "
+                    (completing-read "Cap: " (pcmpl-cap-tasks)))
+                " "
                 (ruby-compilation--format-env-vars env-vars)))
-	 (cap-args (if (and edit (not (stringp edit)))
-		       (read-from-minibuffer "Edit Cap Command: " (concat task " "))
-		     task)))
+         (cap-args (if (and edit (not (stringp edit)))
+                       (read-from-minibuffer "Edit Cap Command: " (concat task " "))
+                     task)))
     (if (string-match "shell" task)
         (with-current-buffer (run-ruby (concat "cap " cap-args) "cap")
           (dolist (var '(inf-ruby-first-prompt-pattern inf-ruby-prompt-pattern))
             (set (make-local-variable var) "^cap> ")))
       (progn ;; handle all cap commands aside from shell
-	(pop-to-buffer (ruby-compilation-do "cap" (cons "cap" (split-string cap-args))))
-	(ruby-capistrano-minor-mode) ;; override some keybindings to make interaction possible
-	(push (cons 'ruby-capistrano-minor-mode ruby-capistrano-minor-mode-map)
+        (pop-to-buffer (ruby-compilation-do "cap" (cons "cap" (split-string cap-args))))
+        (ruby-capistrano-minor-mode) ;; override some keybindings to make interaction possible
+        (push (cons 'ruby-capistrano-minor-mode ruby-capistrano-minor-mode-map)
               minor-mode-map-alist)))))
 
 (defvar ruby-capistrano-minor-mode-map
@@ -343,6 +350,7 @@ capistrano."
 
 ;; Local Variables:
 ;; coding: utf-8
+;; indent-tabs-mode: nil
 ;; eval: (checkdoc-minor-mode 1)
 ;; End:
 
