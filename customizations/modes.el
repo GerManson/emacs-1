@@ -90,8 +90,8 @@
 (add-hook 'html-mode-hook (lambda () (rainbow-mode 1)))
 
 ;; Ruby Version Manager
-(require 'rvm)
-(rvm-use-default)
+(require 'rbenv)
+(rbenv-use-global)
 
 ;; Markdown
 (require 'markdown-mode)
