@@ -81,7 +81,7 @@
 ;; Copyright (C) 2012 Romain Francoise.
 ;; Copyright (C) 2012 Ron Parker.
 ;; Copyright (C) 2012 Ryan C. Thompson.
-;; Copyright (C) 2009, 2010, 2011, 2012, 2013 Rémi Vanicat.
+;; Copyright (C) 2009-2013 Rémi Vanicat.
 ;; Copyright (C) 2011, 2012 Rüdiger Sonderfeld.
 ;; Copyright (C) 2012 Samuel Bronson.
 ;; Copyright (C) 2010 Sean Bryant.
@@ -149,6 +149,7 @@
 (require 'easymenu)
 (require 'diff-mode)
 (require 'ansi-color)
+(require 'thingatpt)
 
 ;; Silences byte-compiler warnings
 (eval-and-compile
@@ -2693,7 +2694,7 @@ Please see the manual for a complete description of Magit.
           (funcall func)
         (when magit-refresh-needing-buffers
           (magit-revert-buffers dir)
-          (dolist (b (if (memq status-buffer magit-refresh-needing-buffers)
+          (dolist (b (if (not (memq status-buffer magit-refresh-needing-buffers))
                          (cons status-buffer magit-refresh-needing-buffers)
                        magit-refresh-needing-buffers))
             (magit-refresh-buffer b)))))))
@@ -3613,12 +3614,19 @@ must return a string which will represent the log line.")
 
 (defvar magit-log-author-date-string-length nil
   "only use in `*magit-log*' buffer.")
+(make-variable-buffer-local 'magit-log-author-date-string-length)
+
 (defvar magit-log-author-string-length nil
   "only use in `*magit-log*' buffer.")
+(make-variable-buffer-local 'magit-log-author-string-length)
+
 (defvar magit-log-date-string-length nil
   "only use in `*magit-log*' buffer.")
+(make-variable-buffer-local 'magit-log-date-string-length)
+
 (defvar magit-log-author-date-overlay nil
   "only use in `*magit-log*' buffer.")
+(make-variable-buffer-local 'magit-log-author-date-overlay)
 
 (defun magit-log-make-author-date-overlay (author date)
   (let ((overlay (make-overlay (point) (point))))
@@ -3679,16 +3687,16 @@ must return a string which will represent the log line.")
   "Buffer name for display of log entries.")
 
 (defun magit-log-display-author-date ()
-  (with-selected-window (get-buffer-window magit-log-buffer-name)
+  (when (derived-mode-p 'magit-log-mode)
     (set-window-margins nil
-                        (car (window-margins))
-                        magit-log-author-date-string-length)))
+                            (car (window-margins))
+                            magit-log-author-date-string-length)))
 
 (defun magit-log-initialize-author-date-overlay ()
-  (when (equal magit-log-buffer-name (buffer-name))
-    (set (make-local-variable 'magit-log-author-date-string-length) 0)
-    (set (make-local-variable 'magit-log-author-string-length) 0)
-    (set (make-local-variable 'magit-log-date-string-length) 0)
+  (when (derived-mode-p 'magit-log-mode)
+    (setq magit-log-author-date-string-length 0)
+    (setq magit-log-author-string-length 0)
+    (setq magit-log-date-string-length 0)
     (when magit-log-author-date-overlay
       (mapc #'delete-overlay magit-log-author-date-overlay)
       (setq magit-log-author-date-overlay nil)
@@ -3696,7 +3704,7 @@ must return a string which will represent the log line.")
                    'magit-log-display-author-date t))))
 
 (defun magit-log-create-author-date-overlay ()
-  (when (equal magit-log-buffer-name (buffer-name))
+  (when (derived-mode-p 'magit-log-mode)
     (magit-log-set-author-date-overlays)
     (magit-log-display-author-date)
     (when magit-log-author-date-overlay
@@ -5946,7 +5954,7 @@ for the file whose log must be displayed."
                            (magit-read-file-from-rev (magit-get-current-branch))
                         buffer-file-name)))
         (range "HEAD"))
-    (magit-buffer-switch "*magit-log*")
+    (magit-buffer-switch magit-log-buffer-name)
     (magit-mode-init topdir 'magit-log-mode
                      #'magit-refresh-file-log-buffer
                      current-file range 'oneline)))
@@ -6308,8 +6316,14 @@ Return values:
                       (magit-section-info section)))
          (old-editor (getenv "GIT_EDITOR")))
     (if (executable-find "emacsclient")
-        (setenv "GIT_EDITOR" (concat (executable-find "emacsclient")
-                                     " -s " server-name))
+        (setenv "GIT_EDITOR"
+                (cond ((string= server-name "server")
+                       (executable-find "emacsclient"))
+                      ((eq system-type 'windows-nt)
+                       (message "We don't know how to deal with non-default server name on windows")
+                       ())
+                      (t (concat (executable-find "emacsclient")
+                                 " -s " server-name))))
         (message "Cannot find emacsclient, using default git editor, please check your PATH"))
     (unwind-protect
         (magit-run-git-async "rebase" "-i"
@@ -6686,15 +6700,16 @@ This can be added to `magit-mode-hook' for example"
 (magit-define-command grep (&optional pattern)
   (interactive)
   (let ((pattern (or pattern
-                     (read-string "git grep: "))))
+                     (read-string "git grep: " (word-at-point)))))
     (with-current-buffer (generate-new-buffer "*Magit Grep*")
-      (insert magit-git-executable " "
-              (mapconcat 'identity magit-git-standard-options " ")
-              " grep -n "
-              (shell-quote-argument pattern) "\n\n")
-      (magit-git-insert (list "grep" "--line-number" pattern))
-      (grep-mode)
-      (pop-to-buffer (current-buffer)))))
+      (let ((default-directory (magit-get-top-dir default-directory)))
+        (insert magit-git-executable " "
+                (mapconcat 'identity magit-git-standard-options " ")
+                " grep -n "
+                (shell-quote-argument pattern) "\n\n")
+        (magit-git-insert (list "grep" "--line-number" pattern))
+        (grep-mode)
+        (pop-to-buffer (current-buffer))))))
 
 (provide 'magit)
 
