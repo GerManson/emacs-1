@@ -1,5 +1,5 @@
 ;; fms's init.el
-(require 'cl)
+(require 'cl-lib)
 
 (require 'package)
 (add-to-list 'package-archives
