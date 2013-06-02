@@ -1,6 +1,6 @@
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying \"Active processes exist\" query when you quit Emacs."
-  (cl-flet ((process-list ())) ad-do-it))
+  (flet ((process-list ())) ad-do-it))
 
 ; ask before exiting
 (defun confirm-exit-emacs ()
