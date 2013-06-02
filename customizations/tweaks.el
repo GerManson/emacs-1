@@ -57,21 +57,12 @@
   (remq 'process-kill-buffer-query-function
          kill-buffer-query-functions))
 
-;; Use aspell instead of ispell
-(setq-default ispell-program-name "aspell")
-
-;; sql-mode default to postgresql syntax hightlighting
-(add-hook 'sql-mode-hook (lambda () (sql-set-product 'mysql)))
-
-;; Dired+ use a single buffer
-(toggle-diredp-find-file-reuse-dir 1)
-
 (put 'erase-buffer 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
-; Darwin configuration
+; Darwin configuration for shell access
 (when (equal system-type 'darwin)
   ; MacOS X paths
   (load-file "/Applications/Emacs.app/Contents/Resources/lisp/shell.el.gz")
@@ -81,10 +72,6 @@
   ; Shell path
   (setq explicit-shell-file-name "/opt/local/bin/bash")
 
-  ; Database clients for MacOS X
-  (setq sql-postgres-program "psql92")
-  (setq sql-mysql-program "/opt/local/lib/mysql55/bin/mysql")
-
   ; Turn cmd key into meta
-;  (setq mac-option-modifier 'none)
+  ;  (setq mac-option-modifier 'none)
   (setq mac-command-modifier 'meta))

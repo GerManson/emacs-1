@@ -115,5 +115,17 @@
                      ("TO-CODE" . (:foreground "magenta"))
                      ("TODO" . (:foreground "white"))))))
 
+;; SQL
+(add-hook 'sql-mode-hook (lambda () (sql-set-product 'mysql)))
+(when (equal system-type 'darwin)
+  (setq sql-postgres-program "psql92")
+  (setq sql-mysql-program "/opt/local/lib/mysql55/bin/mysql")
+
 ; electric-pair-mode
 (electric-pair-mode)
+
+;; Use aspell instead of ispell
+(setq-default ispell-program-name "aspell")
+
+;; Dired+ use a single buffer
+(toggle-diredp-find-file-reuse-dir 1)
