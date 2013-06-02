@@ -69,6 +69,7 @@
 (put 'erase-buffer 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 ; Darwin configuration
 (when (equal system-type 'darwin)
