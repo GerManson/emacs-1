@@ -154,3 +154,6 @@
 (require 'yasnippet)
 (setq yas/prompt-functions '(yas/dropdown-prompt))
 (yas/global-mode t)
+
+;; In place editing.
+(require 'iedit)
