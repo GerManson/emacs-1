@@ -6,7 +6,7 @@
 ;; URL: http://github.com/nonsequitur/inf-ruby
 ;; Created: 8 April 1998
 ;; Keywords: languages ruby
-;; Version: 20130601.1427
+;; Version: 20130603.311
 ;; X-Original-Version: 2.2.4
 
 ;;; Commentary:
@@ -21,48 +21,56 @@
 ;;    (eval-after-load 'ruby-mode
 ;;      '(add-hook 'ruby-mode-hook 'inf-ruby-setup-keybindings))
 
-;;; TODO:
-;;
-;; inferior-ruby-error-regexp-alist doesn't match this example
-;;   SyntaxError: /home/eschulte/united/org/work/arf/arf/lib/cluster.rb:35: syntax error, unexpected '~', expecting kEND
-;;               similarity = comparison_cache[m][n] ||= clusters[m] ~ clusters[n]
-
 (require 'comint)
 (require 'compile)
 (require 'ruby-mode)
 
 (defvar inf-ruby-default-implementation "ruby"
-  "Which ruby implementation to use if none is specified.")
+  "Which Ruby implementation to use if none is specified.")
 
-(defvar inf-ruby-first-prompt-pattern "^irb(.*)[0-9:]+0> *"
-  "First prompt regex pattern of ruby interpreter.")
+(defconst inf-ruby-prompt-format
+  (mapconcat
+   #'identity
+   '("\\(^%s> .*\\)"                     ; Simple
+     "\\(^\\(irb([^)]+)"                 ; IRB default
+     "\\(\[[0-9]+\] \\)?[Pp]ry ?([^)]+)" ; Pry
+     "\\(jruby-\\|JRUBY-\\)?[1-9]\\.[0-9]\\.[0-9]+\\(-?p?[0-9]+\\)?" ; RVM
+     ;; Statement and nesting counters, common to the last three.
+     "\\) ?[0-9:]* ?%s *\\)")
+   "\\|")
+  "Format string for the prompt regexp pattern.
+Two placeholders: first char in the Simple prompt, and the last
+graphical char in all other prompts.")
 
-(defvar inf-ruby-prompt-pattern "^\\(irb(.*)[0-9:]+[>*\"'] *\\)+"
-  "Prompt regex pattern of ruby interpreter.")
+(defvar inf-ruby-first-prompt-pattern (format inf-ruby-prompt-format ">" ">")
+  "First prompt regex pattern of Ruby interpreter.")
+
+(defvar inf-ruby-prompt-pattern (format inf-ruby-prompt-format "[?>]" "[\]>*\"'/`]")
+  "Prompt regex pattern of Ruby interpreter.")
 
 (defvar inf-ruby-mode-hook nil
-  "*Hook for customising inf-ruby mode.")
+  "Hook for customizing inf-ruby mode.")
 
 (defvar inf-ruby-mode-map
   (let ((map (copy-keymap comint-mode-map)))
-    (define-key map (kbd "C-c C-l") 'inf-ruby-load-file)
+    (define-key map (kbd "C-c C-l") 'ruby-load-file)
     (define-key map (kbd "C-x C-e") 'ruby-send-last-sexp)
     (define-key map (kbd "TAB") 'inf-ruby-complete)
     map)
-  "*Mode map for inf-ruby-mode")
+  "Mode map for inf-ruby-mode")
 
 (defvar inf-ruby-implementations
-  '(("ruby"     . "irb -r irb/completion")
-    ("jruby"    . "jruby -S irb -r irb/completion")
+  '(("ruby"     . "irb --prompt default -r irb/completion")
+    ("jruby"    . "jruby -S irb --prompt default -r irb/completion")
     ("rubinius" . "rbx -r irb/completion")
     ("yarv"     . "irb1.9 -r irb/completion")
     ("macruby"  . "macirb -r irb/completion"))
   "An alist of ruby implementations to irb executable names.")
 
 (defvar ruby-source-modes '(ruby-mode enh-ruby-mode)
-  "*Used to determine if a buffer contains Ruby source code.
+  "Used to determine if a buffer contains Ruby source code.
 If it's loaded into a buffer that is in one of these major modes, it's
-considered a ruby source file by ruby-load-file.
+considered a ruby source file by `ruby-load-file'.
 Used by these commands to determine defaults.")
 
 (defvar ruby-prev-l/c-dir/file nil
@@ -74,7 +82,7 @@ next one.")
 (defvar inf-ruby-at-top-level-prompt-p t)
 
 (defconst inf-ruby-error-regexp-alist
-  '(("SyntaxError: compile error\n^\\([^\(].*\\):\\([1-9][0-9]*\\):" 1 2)
+  '(("SyntaxError: \\(?:compile error\n\\)?\\([^\(].*\\):\\([1-9][0-9]*\\):" 1 2)
     ("^\tfrom \\([^\(].*\\):\\([1-9][0-9]*\\)\\(:in `.*'\\)?$" 1 2)))
 
 ;;;###autoload
@@ -106,15 +114,15 @@ next one.")
 (defvar inf-ruby-buffer nil "Current irb process buffer.")
 
 (defun inf-ruby-mode ()
-  "Major mode for interacting with an inferior ruby (irb) process.
+  "Major mode for interacting with an inferior Ruby (irb) process.
 
 The following commands are available:
 \\{inf-ruby-mode-map}
 
-A ruby process can be fired up with M-x inf-ruby.
+A Ruby process can be fired up with M-x inf-ruby.
 
-Customisation: Entry to this mode runs the hooks on comint-mode-hook and
-inf-ruby-mode-hook (in that order).
+Customization: When entered, this mode runs `comint-mode-hook' and
+`inf-ruby-mode-hook' (in that order).
 
 You can send text to the inferior ruby process from other buffers containing
 Ruby source.
@@ -122,7 +130,7 @@ Ruby source.
     `ruby-switch-to-inf' switches the current buffer to the ruby process buffer.
     `ruby-send-definition' sends the current definition to the ruby process.
     `ruby-send-region' sends the current region to the ruby process.
-    `ruby-send-definition-and-go', `ruby-send-region-and-go'
+    `ruby-send-definition-and-go' and `ruby-send-region-and-go'
         switch to the ruby process buffer after sending their text.
 
 Commands:
@@ -145,18 +153,21 @@ to continue it."
   (setq mode-name "Inf-Ruby")
   (setq mode-line-process '(":%s"))
   (use-local-map inf-ruby-mode-map)
-  (add-to-list 'comint-output-filter-functions 'inf-ruby-output-filter)
+  (add-hook 'comint-output-filter-functions 'inf-ruby-output-filter nil t)
   (setq comint-get-old-input (function inf-ruby-get-old-input))
   (make-local-variable 'compilation-error-regexp-alist)
   (setq compilation-error-regexp-alist inf-ruby-error-regexp-alist)
+  (when (eq system-type 'windows-nt)
+    (setq comint-process-echoes t))
   (compilation-shell-minor-mode t)
   (run-hooks 'inf-ruby-mode-hook))
 
 (defun inf-ruby-output-filter (output)
   "Check if the current prompt is a top-level prompt"
-  (setq inf-ruby-at-top-level-prompt-p
-        (string-match inf-ruby-first-prompt-pattern
-                      (car (last (split-string output "\n"))))))
+  (unless (zerop (length output))
+    (setq inf-ruby-at-top-level-prompt-p
+          (string-match inf-ruby-first-prompt-pattern
+                        (car (last (split-string output "\n")))))))
 
 ;; adapted from replace-in-string in XEmacs (subr.el)
 (defun inf-ruby-remove-in-string (str regexp)
@@ -329,12 +340,13 @@ Then switch to the process buffer."
     (replace-regexp-in-string "\n" "\\\\n"
       (replace-regexp-in-string "\\\\" "\\\\\\\\" str))))
 
-(defsubst inf-ruby-fix-completions-on-windows ()
+(defsubst inf-ruby-fix-completions-on-windows (completions)
   "On Windows, the string received by `accept-process-output'
 starts with the last line that was sent to the Ruby process.
 The reason for this is unknown. Remove this line from `completions'."
   (if (eq system-type 'windows-nt)
-    (setq completions (cdr completions))))
+      (cdr completions)
+    completions))
 
 (defun inf-ruby-completions (seed)
   "Return a list of completions for the line of ruby code starting with SEED."
@@ -347,7 +359,7 @@ The reason for this is unknown. Remove this line from `completions'."
     (while (and (not (string-match inf-ruby-prompt-pattern kept))
                 (accept-process-output proc 2)))
     (setq completions (butlast (split-string kept "\r?\n") 2))
-    (inf-ruby-fix-completions-on-windows)
+    (setq completions (inf-ruby-fix-completions-on-windows completions))
     (set-process-filter proc comint-filt)
     completions))
 
