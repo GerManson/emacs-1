@@ -7,7 +7,7 @@
 (setq ido-create-new-buffer 'always) ; always create a new buffer with Ido
 (ido-everywhere t)
 
-;; ido for M-x
+;; ido-like for M-x
 (require 'smex)
 (smex-initialize)
 
@@ -52,13 +52,13 @@
                                                'comint-preoutput-filter-functions
                                                (lambda (output)
                                                  (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output))))))))
+
 ;; PHP
 (require 'php-mode)
 
 ;; Git
 (require 'magit)
 (autoload 'magit-status "magit" nil t)
-
 (eval-after-load 'magit
   '(progn
      (set-face-foreground 'magit-diff-add "green3")
@@ -109,19 +109,19 @@
 (require 'org)
 (add-hook 'org-mode-hook
           (lambda ()
-             (setq org-todo-keyword-faces
-                   '(("COMMITTED" . (:foreground "yellow"))
-                     ("DONE" . (:foreground "cyan"))
-                     ("TO-CODE" . (:foreground "magenta"))
-                     ("TODO" . (:foreground "white"))))))
+            (setq org-todo-keyword-faces
+                  '(("COMMITTED" . (:foreground "yellow"))
+                    ("DONE" . (:foreground "cyan"))
+                    ("TO-CODE" . (:foreground "magenta"))
+                    ("TODO" . (:foreground "white"))))))
 
 ;; SQL
 (add-hook 'sql-mode-hook (lambda () (sql-set-product 'mysql)))
 (when (equal system-type 'darwin)
   (setq sql-postgres-program "psql92")
-  (setq sql-mysql-program "/opt/local/lib/mysql55/bin/mysql")
+  (setq sql-mysql-program "/opt/local/lib/mysql55/bin/mysql"))
 
-; electric-pair-mode
+;; paired characters!
 (electric-pair-mode)
 
 ;; Use aspell instead of ispell
@@ -129,3 +129,28 @@
 
 ;; Dired+ use a single buffer
 (toggle-diredp-find-file-reuse-dir 1)
+
+;; Nice dropdowns
+(require 'dropdown-list)
+
+;; autocomplete, pure bliss.
+(require 'auto-complete)
+(require 'auto-complete-config)
+(global-auto-complete-mode t)
+
+(set-default 'ac-sources
+             '(ac-source-imenu
+               ac-source-dictionary
+               ac-source-words-in-buffer
+               ac-source-words-in-same-mode-buffers
+               ac-source-yasnippet))
+
+(dolist (mode '(magit-log-edit-mode log-edit-mode org-mode text-mode
+                                    html-mode nxml-mode sh-mode lisp-mode textile-mode
+                                    markdown-mode css-mode sql-mode))
+  (add-to-list 'ac-modes mode))
+
+;; Snippets galore.
+(require 'yasnippet)
+(setq yas/prompt-functions '(yas/dropdown-prompt))
+(yas/global-mode t)

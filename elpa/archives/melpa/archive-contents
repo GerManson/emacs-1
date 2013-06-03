@@ -645,7 +645,7 @@
 	   [(20130602 145)
 	    nil "Modular emacs configuration framework [github]" tar])
  (smooth-scrolling .
-		   [(20130414 1530)
+		   [(20130602 1609)
 		    nil "Make emacs scroll smoothly [github]" single])
  (smooth-scroll .
 		[(20130321 2114)
@@ -1435,7 +1435,7 @@
 	   (2 0 0)))
 	 "Client for Clojure nREPL [github]" single])
  (notmuch .
-	  [(20130601 900)
+	  [(20130602 2043)
 	   nil "No description available. [git]" tar])
  (nose .
        [(20110804 819)
@@ -1545,6 +1545,9 @@
  (mode-line-debug .
 		  [(20121207 1644)
 		   nil "show status of `debug-on-error' in the mode-line [github]" single])
+ (mode-icons .
+	     [(20130602 1448)
+	      nil "Show icons for modes [git]" tar])
  (mocker .
 	 [(20130418 2343)
 	  ((eieio
@@ -1802,7 +1805,7 @@
 	   [(20100119 2148)
 	    nil "Add legalese to your program files [wiki]" single])
  (ldg-mode .
-	   [(20130523 2105)
+	   [(20130602 2046)
 	    nil "Helper code for use with the \"ledger\" command-line tool [github]" tar])
  (lcs .
       [(20121201 1455)
@@ -1826,7 +1829,7 @@
      [(20130407 1418)
       nil "key/value data structure functions [github]" single])
  (kmacro-decision .
-		  [(20130602 2121)
+		  [(20130602 2220)
 		   ((el-x
 		     (1 0)))
 		   "Add conditional branching to keyboard macros [github]" single])
@@ -2019,7 +2022,7 @@
 	      [(20121016 957)
 	       nil "convert english words between singular and plural [github]" single])
  (inf-ruby .
-	   [(20130602 1759)
+	   [(20130603 311)
 	    nil "Run a ruby process in a buffer [github]" single])
  (inf-php .
 	  [(20130414 1621)
@@ -2316,7 +2319,7 @@
 	   (1 2)))
 	 "Emacs client for hastebin (http://hastebin.com/about.md) [github]" single])
  (haskell-mode .
-	       [(20130602 1440)
+	       [(20130602 2232)
 		nil "A Haskell editing mode [github]" tar])
  (hardhat .
 	  [(20130522 1243)
@@ -2778,9 +2781,11 @@
 	  [(20120211 1557)
 	   nil "Fast navigation and editing routines. [github]" single])
  (fakir .
-	[(20130602 1039)
+	[(20130602 2253)
 	 ((noflet
-	   (0 0 2)))
+	   (0 0 3))
+	  (dash
+	   (1 3 2)))
 	 "fakeing bits of Emacs [github]" single])
  (fakespace .
 	    [(20120817 2006)
@@ -2839,7 +2844,7 @@
 	   (0 0 5)))
 	 "Library for working with xml via esxml and sxml [github]" single])
  (esup .
-       [(20130530 356)
+       [(20130602 1703)
 	nil "the Emacs StartUp Profiler (ESUP) [github]" single])
  (ess-R-object-popup .
 		     [(20130302 2036)
@@ -3170,7 +3175,7 @@
 	       [(20130520 1854)
 		nil "Aspell extra dictionary for Drupal [github]" tar])
  (drupal-mode .
-	      [(20130503 1229)
+	      [(20130602 2146)
 	       ((php-mode
 		 (1 5 0)))
 	       "Advanced minor mode for Drupal development [github]" tar])
@@ -3338,9 +3343,9 @@
 	       [(20090510 2255)
 		nil "Mode for editing crontab files [github]" single])
  (creole .
-	 [(20130525 1056)
-	  ((el-x
-	    (0 2 1)))
+	 [(20130602 2307)
+	  ((noflet
+	    (0 0 3)))
 	  "A parser for the Creole Wiki language [github]" single])
  (crappy-jsp-mode .
 		  [(20121117 1856)
@@ -3719,7 +3724,7 @@
 	   [(20130323 1652)
 	    nil "open anything / QuickSilver-like candidate-selection framework [git]" tar])
  (anti-zenburn-theme .
-		     [(20130523 2347)
+		     [(20130603 16)
 		      nil "Low-contrast Zenburn-inverted theme [github]" single])
  (ansi .
        [(20121008 1920)
