@@ -2,11 +2,49 @@
 (require 'cl-lib)
 
 (require 'package)
+
+(package-initialize)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(defvar my-packages nil "My list of ELPA packages")
+(setq my-packages '(auto-complete
+                    dired+
+                    dropdown-list
+                    findr
+                    ido-ubiquitous
+                    iedit
+                    inf-ruby
+                    inflections
+                    js-comint
+                    js2-mode
+                    jump
+                    magit
+                    markdown-mode
+                    monokai-theme
+                    paredit
+                    php-mode
+                    popup
+                    quack
+                    rainbow-mode
+                    rbenv
+                    rinari
+                    ruby-compilation
+                    ruby-mode
+                    smex
+                    textile-mode
+                    yaml-mode
+                    yasnippet))
+
+(dolist (pkg my-packages)
+  (when (and (not (package-installed-p pkg))
+           (assoc pkg package-archive-contents))
+    (package-install pkg)))
 
 ; add directories to the load path
 (add-to-list 'load-path "~/.emacs.d")
