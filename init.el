@@ -17,6 +17,7 @@
                     dired+
                     dropdown-list
                     findr
+                    gnuplot
                     ido-ubiquitous
                     iedit
                     inf-ruby
@@ -43,7 +44,7 @@
 
 (dolist (pkg my-packages)
   (when (and (not (package-installed-p pkg))
-           (assoc pkg package-archive-contents))
+             (assoc pkg package-archive-contents))
     (package-install pkg)))
 
 ; add directories to the load path
