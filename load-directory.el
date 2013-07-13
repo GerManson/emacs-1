@@ -24,7 +24,7 @@
   "The number of bytes loaded by load-directory.")
 
 (defvar load-directory-pattern
-      "\\.\\(elc?\\)\\|\\(ELC?\\)$"
+  "\\.\\(elc?\\)\\|\\(ELC?\\)$"
   "Pattern for which files to load when loading all elisp in a directory.
 Unfortunately, directory-files insists on treating its pattern
 case-sensitively, case-fold-search notwithstanding.")
@@ -47,60 +47,59 @@ If the optional second argument is not given, or is nil:
 if there are both an elc and an el file for the same base name, load only
 the elc file.
 If the optional second argument is non-nil, load only .el files."
-  (interactive "DDirectory to load emacs files from:
-P")
+  (interactive "DDirectory to load emacs files from:P")
   (if (or t (yes-or-no-p (format "Load directory %s? " dir)))
       (let ((files (directory-files (expand-file-name (substitute-in-file-name dir)) t
-				    load-directory-pattern))
-	    (load-compiled (not lisp-only))
-	    (gc-before (garbage-collect))
-	    gc-after)
-	(message "load-directory: files are %s" files)
-	(let ((stack-trace-on-error t))
-	  (while files
-	    (let ((file (car files)))
-	      (if (or (and load-compiled
-			   (string-match "c$" file))
-		      ;; don't load <name>.el if <name>.elc exists
-		      (not (file-exists-p (concat file "c"))))
-		  (if (or t (y-or-n-p (format "Load file %s? " file)))
-		      (progn
-			(condition-case error-var
-			    (progn
-			      (message "Loading %s..." file)
-			      (message "(load-file \"%s\")" file)
-			      (run-hook-with-args 'load-directory-pre-load-file-hooks file)
-			      (if (or t (y-or-n-p (format "load %s? " file)))
-				  (load-file file))
-			      (setq gc-after (garbage-collect)
-				    load-directory-file-conses (cons
-								(list file
-								      (- (car (car gc-after))
-									 (car (car gc-before)))
-								      (- (car (car (cdr gc-after)))
-									 (car (car (cdr gc-before))))
-								      (- (nth 4 gc-after) (nth 4 gc-before)))
-								load-directory-file-conses)
-				    gc-before gc-after)
-			      (if (eq system-type 'berkely-unix)
-				  (message "PS: %s" (shell-command-to-string (format "ps  -vp %d" (emacs-pid)))))
-			      (run-hook-with-args 'load-directory-post-load-file-hooks file)
-			      (message "Loading %s... done" file))
-			  (error
-			   (progn
-			     ;; unfortunately, handling it here means we don't get a backtrace!
-			     (if (get-buffer "*Backtrace*")
-				 (progn
-				   (set-buffer  "*Backtrace*")
-				   (rename-buffer (format  "*Backtrace-%s*" file) t)))
-			     (if (eq (car error-var) 'file-error)
-				 (message "load-path is %S" load-path))
-			     (message "Problem in loading %s: %s" file error-var)
-			     (sit-for 2))))
-			(setq load-directory-loaded (cons file load-directory-loaded)
-			      load-directory-bytes (+ load-directory-bytes
-						      (nth 7 (file-attributes file))))))))
-	    (setq files (cdr files)))))
+                                    load-directory-pattern))
+            (load-compiled (not lisp-only))
+            (gc-before (garbage-collect))
+            gc-after)
+        (message "load-directory: files are %s" files)
+        (let ((stack-trace-on-error t))
+          (while files
+            (let ((file (car files)))
+              (if (or (and load-compiled
+                           (string-match "c$" file))
+                      ;; don't load <name>.el if <name>.elc exists
+                      (not (file-exists-p (concat file "c"))))
+                  (if (or t (y-or-n-p (format "Load file %s? " file)))
+                      (progn
+                        (condition-case error-var
+                            (progn
+                              (message "Loading %s..." file)
+                              (message "(load-file \"%s\")" file)
+                              (run-hook-with-args 'load-directory-pre-load-file-hooks file)
+                              (if (or t (y-or-n-p (format "load %s? " file)))
+                                  (load-file file))
+                              (setq gc-after (garbage-collect)
+                                    load-directory-file-conses (cons
+                                                                (list file
+                                                                      (- (nth 2 (car gc-after))
+                                                                         (nth 2 (car gc-before)))
+                                                                      (- (nth 2 (car (cdr gc-after)))
+                                                                         (nth 2 (car (cdr gc-before))))
+                                                                      (- (nth 2(nth 6 gc-after)) (nth 2(nth 6 gc-before))))
+                                                                load-directory-file-conses)
+                                    gc-before gc-after)
+                              (if (eq system-type 'berkely-unix)
+                                  (message "PS: %s" (shell-command-to-string (format "ps  -vp %d" (emacs-pid)))))
+                              (run-hook-with-args 'load-directory-post-load-file-hooks file)
+                              (message "Loading %s... done" file))
+                          (error
+                           (progn
+                             ;; unfortunately, handling it here means we don't get a backtrace!
+                             (if (get-buffer "*Backtrace*")
+                                 (progn
+                                   (set-buffer  "*Backtrace*")
+                                   (rename-buffer (format  "*Backtrace-%s*" file) t)))
+                             (if (eq (car error-var) 'file-error)
+                                 (message "load-path is %S" load-path))
+                             (message "Problem in loading %s: %s" file error-var)
+                             (sit-for 2))))
+                        (setq load-directory-loaded (cons file load-directory-loaded)
+                              load-directory-bytes (+ load-directory-bytes
+                                                      (nth 7 (file-attributes file))))))))
+            (setq files (cdr files)))))
     (message "Skipped loading directory %s at user request" dir)))
 
 ;;; useful auxiliary function for the above
@@ -110,11 +109,11 @@ P")
   (catch 'found
     (let ((lp load-path))
       (while lp
-	(let* ((fulldir (expand-file-name (car lp)))
-	       (fullsubdir (expand-file-name subdir fulldir)))
-	  (if (file-directory-p fullsubdir)
-	      (throw 'found fullsubdir)))
-	(setq lp (cdr lp))))
+        (let* ((fulldir (expand-file-name (car lp)))
+               (fullsubdir (expand-file-name subdir fulldir)))
+          (if (file-directory-p fullsubdir)
+              (throw 'found fullsubdir)))
+        (setq lp (cdr lp))))
     nil))
 
 ;;; end of load-directory.el
