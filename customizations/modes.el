@@ -75,7 +75,7 @@
 (cond ((eq system-type 'gnu/linux) (setq inferior-lisp-program "/usr/bin/sbcl"))
       ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl")))
 
-(slime-setup '(slime-fancy slime-repl slime-editing-commands slime-references))
+(slime-setup '(slime-fancy slime-repl slime-editing-commands slime-references slime-autodoc slime-fancy-inspector))
 
 ;; Paredit
 (require 'paredit)
