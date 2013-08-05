@@ -110,10 +110,14 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (setq org-todo-keyword-faces
-                  '(("COMMITTED" . (:foreground "yellow"))
-                    ("DONE" . (:foreground "cyan"))
-                    ("TO-CODE" . (:foreground "magenta"))
-                    ("TODO" . (:foreground "white"))))))
+                  '(("TO-CODE" :background "red2" :weight bold :foreground "white")
+                    ("COMMITTED" :background "VioletRed4" :weight bold :foreground "white")
+                    ("MERGED" :background "DodgerBlue3" :weight bold :foreground "white")
+                    ("TODO" :background "firebrick" :weight bold :foreground "white")
+                    ("DONE" :background "SeaGreen4" :weight bold :foreground "white")
+                    ("JIRA-ISSUE" :background "sienna3" :weight bold :foreground "white")
+                    ("RESOLVED" :background "blue3" :weight bold :foreground "white")
+                    ("DOCUMENTATION" :background "SlateBlue3" :weight bold :foreground "white")))))
 
 ;; SQL
 (add-hook 'sql-mode-hook (lambda () (sql-set-product 'mysql)))
