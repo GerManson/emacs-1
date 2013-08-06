@@ -110,17 +110,20 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (setq org-todo-keyword-faces
-                  '(("TOCODE" :background "red2" :weight bold :foreground "white")
+                  '(;; Initial state elements are red in color so they are more prominent.
+                    ("TOCODE" :background "red2" :weight bold :foreground "white")
                     ("COMMITTED" :background "VioletRed4" :weight bold :foreground "white")
-                    ("MERGED" :background "DodgerBlue3" :weight bold :foreground "white")
                     ("TODO"  :background "firebrick" :weight bold :foreground "white")
-                    ("DONE" :background "SeaGreen4" :weight bold :foreground "white")
                     ("JIRA-ISSUE" :background "sienna3" :weight bold :foreground "white")
-                    ("RESOLVED" :background "blue2" :weight bold :foreground "white")
                     ("IDEA" :background "red2" :weight bold :foreground "white")
-                    ("ACCOMPLISHED" :background "blue2" :weight bold :foreground "white")
                     ("WRITE" :background "purple" :weight bold :foreground "white")
+                    ;; Done states are blueish so they do not interfere with the things we need to do.
+                    ("MERGED" :background "DodgerBlue3" :weight bold :foreground "white")
+                    ("DONE" :background "SeaGreen4" :weight bold :foreground "white")
+                    ("RESOLVED" :background "blue2" :weight bold :foreground "white")
+                    ("ACCOMPLISHED" :background "blue2" :weight bold :foreground "white")
                     ("WRITTEN" :background "DodgerBlue3" :weight bold :foreground "white")
+                    ;; This is for notes markers.
                     ("NOTE" :background "firebrick" :weight bold :foreground "white")
                     ("HOWTO" :background "royal blue" :weight bold :foreground "white")))))
 
