@@ -66,10 +66,6 @@
 (when (equal system-type 'darwin)
   ; MacOS X paths
   (load-file "/Applications/Emacs.app/Contents/Resources/lisp/shell.el.gz")
-  (setenv "PATH" (concat "/opt/local/bin:/usr/local/bin:" (getenv "PATH")))
-  (push "/opt/local/bin" exec-path)
-
-  ; Shell path
   (setq explicit-shell-file-name "/opt/local/bin/bash")
 
   ; Turn cmd key into meta

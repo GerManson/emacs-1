@@ -16,6 +16,7 @@
 (setq my-packages '(auto-complete
                     dired+
                     dropdown-list
+                    exec-path-from-shell
                     findr
                     gnuplot
                     ido-ubiquitous
