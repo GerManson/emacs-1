@@ -153,8 +153,8 @@
 ;; autocomplete, pure bliss.
 (require 'auto-complete)
 (require 'auto-complete-config)
-(global-auto-complete-mode t)
-(setq ac-auto-start 3)
+;(global-auto-complete-mode t)
+;(setq ac-auto-start 3)
 
 (set-default 'ac-sources
              '(ac-source-imenu
