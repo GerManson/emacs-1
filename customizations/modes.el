@@ -182,3 +182,6 @@
 
 ;; ag
 (setq ag-highlight-search t)
+
+;; server-mode
+(server-mode)
