@@ -62,7 +62,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
-;; Darwin configuration for shell access
 (when (equal system-type 'darwin)
   ;; MacOS X paths
   (load-file "/Applications/Emacs.app/Contents/Resources/lisp/shell.el.gz")

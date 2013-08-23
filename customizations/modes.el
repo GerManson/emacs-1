@@ -10,6 +10,11 @@
 ;; ido-like for M-x
 (require 'smex)
 (smex-initialize)
+(global-set-key "\C-x\C-m" 'smex)
+;; M-x is now smex localized for major mode
+(global-set-key (kbd "M-x") 'smex-major-mode-commands)
+;; Old M-X just in case.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; Ruby
 (require 'ruby-mode)
