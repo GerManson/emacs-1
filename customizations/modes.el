@@ -185,3 +185,6 @@
 
 ;; server-mode
 (server-mode)
+
+;; autofill
+(setq-default fill-column 80)
