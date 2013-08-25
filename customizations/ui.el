@@ -1,5 +1,27 @@
-; don't display startup message
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs ui configuration.
+;;
+;; Francisco Soto <ebobby@ebobby.org>
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; apply syntax highlighting to all buffers
+(global-font-lock-mode t)
+
+;; don't display startup message
 (setq inhibit-startup-message t)
+
+;; show column number in bar
+(column-number-mode t)
+
+;; show marks as selections
+(setq transient-mark-mode t)
+
+;; highlight matching parens
+(show-paren-mode t)
+
+;; highlight incremental search
+(defconst search-highlight t)
+(defconst query-replace-highlight t)
 
 ; Turn off mouse interface early in startup to avoid momentary display
 ;; You really don't need these; trust me.

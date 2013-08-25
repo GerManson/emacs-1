@@ -1,3 +1,9 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs modes configuration.
+;;
+;; Francisco Soto <ebobby@ebobby.org>
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Interactively Do Things
 (require 'ido)
 (require 'ido-ubiquitous)
@@ -46,17 +52,18 @@
                             (local-set-key "\C-c\C-b" 'js-send-buffer-and-go)))
 
 (require 'js-comint)
-(cond ((eq system-type 'darwin) (progn
-                                  (setq inferior-js-program-command "/opt/local/bin/node -i")
-                                  (add-hook 'inferior-js-mode-hook
-                                            (lambda ()
-                                              ;; We like nice colors
-                                              (ansi-color-for-comint-mode-on)
-                                              ;; Deal with some prompt nonsense
-                                              (add-to-list
-                                               'comint-preoutput-filter-functions
-                                               (lambda (output)
-                                                 (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output))))))))
+(cond ((eq system-type 'darwin)
+       (progn
+         (setq inferior-js-program-command "/opt/local/bin/node -i")
+         (add-hook 'inferior-js-mode-hook
+                   (lambda ()
+                     ;; We like nice colors
+                     (ansi-color-for-comint-mode-on)
+                     ;; Deal with some prompt nonsense
+                     (add-to-list
+                      'comint-preoutput-filter-functions
+                      (lambda (output)
+                        (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output))))))))
 
 ;; PHP
 (require 'php-mode)
@@ -188,3 +195,17 @@
 
 ;; autofill
 (setq-default fill-column 80)
+
+;; c-mode
+(setq-default c-basic-offset 4)
+(setq-default c-default-style "linux");
+
+;; wrap lines in a tasteful way
+(global-visual-line-mode 1)
+
+;; save minibuffer history across sessions
+(setq savehist-file "~/.emacs.d/.savehist")
+(savehist-mode 1)
+
+;; pick up changes to files on disk automatically (ie, after git pull)
+(global-auto-revert-mode t)
