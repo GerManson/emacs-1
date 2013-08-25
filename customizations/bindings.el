@@ -26,6 +26,8 @@
 (global-unset-key (kbd "C-x 0"))
 (global-unset-key (kbd "C-x o"))
 
+(global-set-key (kbd "M-k") 'kill-this-buffer)
+
 ;; SMEX
 (global-set-key "\C-x\C-m" 'smex)
 ;; M-x is now smex localized for major mode
