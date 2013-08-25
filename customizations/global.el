@@ -72,11 +72,11 @@
                               (interactive)
                               (other-window -1)))
 
-(global-unset-key (kbd "C-x 1") 'delete-other-windows)
-(global-unset-key (kbd "C-x 2") 'split-window-horizontally)
-(global-unset-key (kbd "C-x 3") 'split-window-vertically)
-(global-unset-key (kbd "C-x 0") 'delete-window)
-(global-unset-key (kbd "C-x o") 'other-window)
+(global-unset-key (kbd "C-x 1"))
+(global-unset-key (kbd "C-x 2"))
+(global-unset-key (kbd "C-x 3"))
+(global-unset-key (kbd "C-x 0"))
+(global-unset-key (kbd "C-x o"))
 
 ;;; Normally disabled commands
 (put 'erase-buffer 'disabled nil)

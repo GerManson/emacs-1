@@ -71,12 +71,19 @@
 ;; Git
 (require 'magit)
 (autoload 'magit-status "magit" nil t)
+(add-hook 'magit-mode-hook (lambda () (setq yas-dont-activate t)))
+
 (eval-after-load 'magit
   '(progn
-     (set-face-foreground 'magit-diff-add "green3")
-     (set-face-foreground 'magit-diff-del "red3")
-     (when (not window-system)
-       (set-face-background 'magit-item-highlight "black"))))
+     (set-face-background 'highlight nil) ;; highlight is overriding other background colors for diff chunks
+     (set-face-foreground 'highlight nil) ;; highlight is overriding other foreground colors for diff chunks
+     (set-face-underline  'highlight nil)
+     (define-key magit-mode-map (kbd "M-3") 'split-window-horizontally) ; was magit-show-level-3
+     (define-key magit-mode-map (kbd "M-2") 'split-window-vertically)   ; was magit-show-level-2
+     (define-key magit-mode-map (kbd "M-1") 'delete-other-windows)      ; was magit-show-level-1
+     (define-key magit-mode-map (kbd "<tab>") 'magit-toggle-section)    ; was smart-tab
+     (define-key magit-status-mode-map (kbd "M-K") 'magit-quit-session)
+     (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace) ))
 
 ;; Common Lisp
 (require 'slime)
@@ -154,31 +161,12 @@
 ;; Dired+ use a single buffer
 (toggle-diredp-find-file-reuse-dir 1)
 
-;; Nice dropdowns
-(require 'dropdown-list)
-
-;; autocomplete, pure bliss.
-(require 'auto-complete)
-(require 'auto-complete-config)
-;(global-auto-complete-mode t)
-;(setq ac-auto-start 3)
-
-(set-default 'ac-sources
-             '(ac-source-imenu
-               ac-source-dictionary
-               ac-source-words-in-buffer
-               ac-source-words-in-same-mode-buffers
-               ac-source-yasnippet))
-
-(dolist (mode '(magit-log-edit-mode log-edit-mode org-mode text-mode
-                                    html-mode nxml-mode sh-mode lisp-mode textile-mode
-                                    markdown-mode css-mode sql-mode))
-  (add-to-list 'ac-modes mode))
-
 ;; Snippets galore.
 (require 'yasnippet)
-(setq yas/prompt-functions '(yas/dropdown-prompt))
-(yas/global-mode t)
+(setq yas/prompt-functions '(yas-ido-prompt yas/dropdown-prompt))
+(yas-global-mode 1)
+;(define-key yas-minor-mode-map [(tab)] nil)
+;(define-key yas-minor-mode-map (kbd "TAB") nil)
 
 ;; In place editing.
 (require 'iedit)
@@ -209,3 +197,12 @@
 
 ;; pick up changes to files on disk automatically (ie, after git pull)
 (global-auto-revert-mode t)
+
+;; Hippie expand
+(setq hippie-expand-try-functions-list
+      '(yas-hippie-try-expand
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name
+        try-complete-lisp-symbol))

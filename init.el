@@ -14,7 +14,6 @@
 
 (defvar my-packages nil "My list of ELPA packages")
 (setq my-packages '(ag
-                    auto-complete
                     dired+
                     dropdown-list
                     exec-path-from-shell
