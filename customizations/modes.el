@@ -7,9 +7,9 @@
 ;; Interactively Do Things
 (require 'ido)
 (require 'ido-ubiquitous)
-(ido-mode t)
-(setq ido-enable-flex-matching t) ; case insensitive matching
 (add-to-list 'ido-ignore-files "\\.DS_Store")
+(ido-mode t)
+(setq ido-enable-flex-matching t)    ; case insensitive matching
 (setq ido-create-new-buffer 'always) ; always create a new buffer with Ido
 (ido-everywhere t)
 
