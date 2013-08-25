@@ -10,5 +10,19 @@
   (setq explicit-shell-file-name "/opt/local/bin/bash")
 
   ;; Turn cmd key into meta
-  ;;  (setq mac-option-modifier 'none)
-  (setq mac-command-modifier 'meta))
+  (setq mac-command-modifier 'meta)
+
+  (setq sql-postgres-program "psql92")
+  (setq sql-mysql-program "/opt/local/lib/mysql55/bin/mysql")
+  (setq inferior-js-program-command "/opt/local/bin/node -i")
+  (setq inferior-lisp-program "/opt/local/bin/sbcl")
+
+  (add-hook 'inferior-js-mode-hook
+            (lambda ()
+              ;; We like nice colors
+              (ansi-color-for-comint-mode-on)
+              ;; Deal with some prompt nonsense
+              (add-to-list
+               'comint-preoutput-filter-functions
+               (lambda (output)
+                 (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output))))))

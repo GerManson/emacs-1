@@ -16,11 +16,6 @@
 ;; ido-like for M-x
 (require 'smex)
 (smex-initialize)
-(global-set-key "\C-x\C-m" 'smex)
-;; M-x is now smex localized for major mode
-(global-set-key (kbd "M-x") 'smex-major-mode-commands)
-;; Old M-X just in case.
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;; Ruby
 (require 'ruby-mode)
@@ -52,18 +47,6 @@
                             (local-set-key "\C-c\C-b" 'js-send-buffer-and-go)))
 
 (require 'js-comint)
-(cond ((eq system-type 'darwin)
-       (progn
-         (setq inferior-js-program-command "/opt/local/bin/node -i")
-         (add-hook 'inferior-js-mode-hook
-                   (lambda ()
-                     ;; We like nice colors
-                     (ansi-color-for-comint-mode-on)
-                     ;; Deal with some prompt nonsense
-                     (add-to-list
-                      'comint-preoutput-filter-functions
-                      (lambda (output)
-                        (replace-regexp-in-string "\033\\[[0-9]+[GKJ]" "" output))))))))
 
 ;; PHP
 (require 'php-mode)
@@ -90,10 +73,6 @@
 (add-hook 'slime-repl-mode-hook  (lambda () (local-set-key (kbd "C-c C-]") 'slime-close-all-parens-in-sexp)))
 (add-to-list 'load-path "~/.emacs.d/vendor/slime/contrib/")
 (add-to-list 'auto-mode-alist '("\\.asd$" . lisp-mode))
-
-(cond ((eq system-type 'gnu/linux) (setq inferior-lisp-program "/usr/bin/sbcl"))
-      ((eq system-type 'darwin) (setq inferior-lisp-program "/opt/local/bin/sbcl")))
-
 (slime-setup '(slime-fancy slime-repl slime-editing-commands slime-references slime-autodoc slime-fancy-inspector))
 
 ;; Paredit
@@ -148,9 +127,6 @@
 
 ;; SQL
 (add-hook 'sql-mode-hook (lambda () (sql-set-product 'mysql)))
-(when (equal system-type 'darwin)
-  (setq sql-postgres-program "psql92")
-  (setq sql-mysql-program "/opt/local/lib/mysql55/bin/mysql"))
 
 ;; paired characters!
 (electric-pair-mode)
@@ -165,8 +141,6 @@
 (require 'yasnippet)
 (setq yas/prompt-functions '(yas-ido-prompt yas/dropdown-prompt))
 (yas-global-mode 1)
-;(define-key yas-minor-mode-map [(tab)] nil)
-;(define-key yas-minor-mode-map (kbd "TAB") nil)
 
 ;; In place editing.
 (require 'iedit)
