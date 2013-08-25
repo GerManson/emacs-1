@@ -45,7 +45,7 @@
 (global-set-key (kbd "TAB") 'smart-tab)
 
 (defun set-smart-tab-locally ()
-  (local-set-key ( kbd "TAB") 'smart-tab))
+  (local-set-key (kbd "TAB") 'smart-tab))
 
 ;; c-mode likes to redefine the tab key.
 (add-hook 'c-mode-hook 'set-smart-tab-locally)
