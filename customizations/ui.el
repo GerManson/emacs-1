@@ -40,8 +40,8 @@
 
 ;; Theme and fonts
 (when window-system
-  (load-theme 'twilight-anti-bright t)
-  ;(load-theme 'monokai t)
+  ;(load-theme 'twilight-anti-bright t)
+  (load-theme 'monokai t)
   (cond ((eq system-type 'gnu/linux)
          (set-default-font "-unknown-Inconsolata-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
         ((eq system-type 'windows-nt)
