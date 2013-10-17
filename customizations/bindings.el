@@ -22,10 +22,10 @@
                                                  mark-active)
                                        (looking-at "\\_>"))))
     (cond ((minibufferp)
-           (minibuffer-complete))
+           (smart-tab-fallback))
           ((smart-tab-must-expand prefix)
            (if smart-tab-using-hippie-expand
-               (hippie-expand prefix)
+             (hippie-expand prefix)
              (dabbrev-expand prefix)))
           ((smart-tab-fallback)))))
 
@@ -41,9 +41,9 @@
          (keys (this-single-command-keys))
          (original-command (key-binding keys t)))
     (if original-command
-        (progn
-          (setq this-original-command original-command)
-          (call-interactively original-command))
+      (progn
+        (setq this-original-command original-command)
+        (call-interactively original-command))
       (smart-indent))))
 
 ;; Unset a bunch of keys
@@ -79,25 +79,21 @@
 ;; M-x is now smex localized for major mode
 (define-key my-key-bindings-minor-mode-map (kbd "M-x") 'smex-major-mode-commands)
 
-;; Old M-X just in case.
-(define-key my-key-bindings-minor-mode-map (kbd "C-c C-c M-x") 'execute-extended-command)
-
 ;; Smart tab
 (define-key my-key-bindings-minor-mode-map (kbd "TAB") 'smart-tab)
 (define-key my-key-bindings-minor-mode-map [(tab)] 'smart-tab)
 
 (define-minor-mode my-key-bindings-minor-mode
-  "A minor mode that sets my own key bindings globally." t " my-keys" 'my-key-bindings-minor-mode
-  (toggle-truncate-lines))
+  "A minor mode that sets my own key bindings globally." t " my-keys" 'my-key-bindings-minor-mode)
 
 (my-key-bindings-minor-mode 1)
 
 (defun my-minibuffer-setup-hook ()
   "This turns the my-keys mode off."
-  (my-keys-minor-mode 0))
+  (my-key-bindings-minor-mode 0))
 
 ;; In case the keybindings are not good in the minibuffer.
-;;(add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
+(add-hook 'minibuffer-setup-hook 'my-minibuffer-setup-hook)
 
 ;; Make sure this mode has preference over all modes.
 (defadvice load (after give-my-keybindings-priority)
