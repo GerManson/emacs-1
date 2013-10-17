@@ -17,14 +17,14 @@
 ; load third-party modes
 (vendor 'slime)
 
-
 (package-initialize)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-(package-refresh-contents)
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
 (defvar my-packages nil "My list of ELPA packages")
 (setq my-packages '(ag
