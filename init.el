@@ -28,6 +28,7 @@
 
 (defvar my-packages nil "My list of ELPA packages")
 (setq my-packages '(ag
+                    dash-at-point
                     dired+
                     dropdown-list
                     exec-path-from-shell

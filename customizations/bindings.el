@@ -83,6 +83,9 @@
 (define-key my-key-bindings-minor-mode-map (kbd "TAB") 'smart-tab)
 (define-key my-key-bindings-minor-mode-map [(tab)] 'smart-tab)
 
+;; dash
+(define-key my-key-bindings-minor-mode-map (kbd "C-c C-p C-d") 'dash-at-point)
+
 (define-minor-mode my-key-bindings-minor-mode
   "A minor mode that sets my own key bindings globally." t " my-keys" 'my-key-bindings-minor-mode)
 
