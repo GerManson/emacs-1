@@ -55,6 +55,7 @@
                     rinari
                     ruby-compilation
                     ruby-mode
+                    rust-mode
                     smex
                     textile-mode
                     yaml-mode
