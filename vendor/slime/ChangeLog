@@ -1,3 +1,64 @@
+2013-11-17  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-sbcl.lisp (swank-compile-string): Load the fasl file even
+	if there were warnings. Just like the other backends do.
+
+2013-11-10  Helmut Eller  <heller@common-lisp.net>
+
+	* slime.el (slime-delete-package): New command.
+	* swank.lisp (swank-delete-package): The corresponding Swank part.
+
+2013-11-10  Helmut Eller  <heller@common-lisp.net>
+
+	* swank.lisp (swank-profile-package): New wrapper for
+	profile-package that does some input validation.
+	* slime.el (slime-profile-package): Use it.
+
+2013-11-01  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-ccl.lisp (p2-definitions): Check bounds before accessing
+	backend-p2-dispatch.
+
+2013-11-01  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-sbcl.lisp (swank-compile-string): Fix last commit.  Honor
+	*trap-load-time-warnings* but without calling LOAD inside
+	WITH-COMPILATION-UNIT.
+
+2013-10-31  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-sbcl.lisp (swank-compile-string): Don't call LOAD inside
+	WITH-COMPILATION-UNIT.
+
+2013-09-29  Helmut Eller  <heller@common-lisp.net>
+
+	For CCL, also search definitions of p2 translators.
+
+	* swank-ccl.lisp (p2-definitions): New.
+	(find-definitions): Use it.
+
+2013-09-29  Helmut Eller  <heller@common-lisp.net>
+
+	* swank-clisp.lisp (*frame-prefixes*): Update some of the patterns
+	for new layout.
+	(is-prefix-p): Use regexp matching.
+	(boring-frame-p): Also make compiled-tagbody compiled-block
+	boring.
+	(sldb-backtrace, %parse-stack-values): Remove code for versions
+	before 2.44.
+
+2013-09-29  Helmut Eller  <heller@common-lisp.net>
+
+	For CCL, also search nx1-alphatizer definitions.
+
+	* swank-ccl.lisp (alphatizer-definitions): New
+	(find-definitions): Use it.
+
+2013-06-26  evenson  <evenson@saturn>
+
+	* swank-abcl.lisp (specializer-direct-methods): Correct symbol
+	definition, allowing SLIME inspector to work again.
+
 2013-05-26  Luís Oliveira  <loliveira@common-lisp.net>
 
 	* slime-fancy-trace.el: New contrib.
