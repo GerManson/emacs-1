@@ -41,10 +41,14 @@
 ;; Theme and fonts
 (when window-system
   ;(load-theme 'twilight-anti-bright t)
-  (load-theme 'monokai t)
+  ;(load-theme 'monokai t)
+  (load-theme 'leuven t)
   (cond ((eq system-type 'gnu/linux)
          (set-default-font "-unknown-Inconsolata-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
         ((eq system-type 'windows-nt)
          (set-face-attribute 'default nil :font "Consolas-11"))
         ((eq system-type 'darwin)
-         (set-face-attribute 'default nil :font "Source Code Pro ExtraLight-11:antialias=false"))))
+         (set-face-attribute 'default nil :font "Source Code Pro Medium-11:antialias=false"))))
+
+; line numbers
+(global-linum-mode 1)

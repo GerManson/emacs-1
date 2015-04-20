@@ -27,7 +27,7 @@
 (setq auto-mode-alist (cons '("\\.gemspec" . ruby-mode) auto-mode-alist))
 
 ;; Rinari
-(require 'rinari)
+;(require 'rinari)
 
 ;; YAML
 (require 'yaml-mode)
@@ -49,7 +49,7 @@
 (require 'js-comint)
 
 ;; PHP
-(require 'php-mode)
+;;(require 'php-mode)
 
 ;; Git
 (require 'magit)
@@ -82,11 +82,6 @@
 
 ;; Scheme
 (require 'quack)
-
-;; Rainbow mode
-(require 'rainbow-mode)
-(add-hook 'css-mode-hook (lambda () (rainbow-mode 1)))
-(add-hook 'html-mode-hook (lambda () (rainbow-mode 1)))
 
 ;; Ruby Version Manager
 (require 'rbenv)
@@ -181,3 +176,24 @@
 (require 'hippie-expand-slime)
 (add-hook 'slime-mode-hook 'set-up-slime-hippie-expand)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-hippie-expand)
+
+;; Web Mode
+(require 'web-mode)
+(require 'rainbow-mode)
+
+(add-hook 'css-mode-hook (lambda () (rainbow-mode 1)))
+(add-hook 'html-mode-hook (lambda () (rainbow-mode 1)))
+(add-hook 'sass-mode-hook (lambda () (rainbow-mode 1)))
+
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+(setq web-mode-code-indent-offset 4)
+
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[gj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))

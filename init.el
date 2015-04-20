@@ -1,9 +1,10 @@
+
 ;; fms's init.el
 (require 'cl-lib)
 (require 'package)
 
 ; add directories to the load path
-(add-to-list 'load-path "~/.emacs.d")
+;(add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/customizations")
 (add-to-list 'load-path "~/.emacs.d/utilities")
 (add-to-list 'load-path "~/.emacs.d/vendor")
@@ -47,12 +48,12 @@
                     monokai-theme
                     twilight-anti-bright-theme
                     paredit
-                    php-mode
+                    ;php-mode
                     popup
                     quack
                     rainbow-mode
                     rbenv
-                    rinari
+                    ;rinari
                     ruby-compilation
                     ruby-mode
                     rust-mode
@@ -69,3 +70,5 @@
 
 ; load personal customizations (keybindings, colors, etc.)
 (mapcar 'load-directory '("~/.emacs.d/customizations"))
+
+(setq magit-last-seen-setup-instructions "1.4.0")
