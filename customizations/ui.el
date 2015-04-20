@@ -38,11 +38,33 @@
 ; no bell
 (setq ring-bell-function 'ignore)
 
+; Moe Theme
+(require 'moe-theme)
+
+;; Show highlighted buffer-id as decoration. (Default: nil)
+(setq moe-theme-highlight-buffer-id t)
+
+;; Resize titles (optional).
+(setq moe-theme-resize-markdown-title '(1.5 1.4 1.3 1.2 1.0 1.0))
+(setq moe-theme-resize-org-title '(1.5 1.4 1.3 1.2 1.1 1.0 1.0 1.0 1.0))
+(setq moe-theme-resize-rst-title '(1.5 1.4 1.3 1.2 1.1 1.0))
+
+;; Choose a color for mode-line.(Default: blue)
+(moe-theme-set-color 'magenta)
+
+;; Finally, apply moe-theme now.
+;; Choose what you like, (moe-light) or (moe-dark)
+(moe-dark)
+
 ;; Theme and fonts
 (when window-system
   ;(load-theme 'twilight-anti-bright t)
   ;(load-theme 'monokai t)
-  (load-theme 'leuven t)
+  ;(load-theme 'leuven t)
+  ;(load-theme 'granger t)
+  ;(load-theme 'spolsky t)
+  ;(load-theme 'mccarthy t)
+  ;(load-theme 'odersky t)
   (cond ((eq system-type 'gnu/linux)
          (set-default-font "-unknown-Inconsolata-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1"))
         ((eq system-type 'windows-nt)
